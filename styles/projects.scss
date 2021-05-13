@@ -1,0 +1,129 @@
+.SectionProjects {
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--contentColor);
+}
+
+.ProjectGridWrapper {
+    grid-column: 2 / span 1;
+    display: grid;
+    grid-template-columns: 20% 5% 75%;
+}
+
+.Filter {
+    grid-column-start: 1;
+    flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: clamp(250px, 100%, 400px);
+    justify-content: flex-start;
+    border: 2px solid var(--backgroundColor);
+    border-bottom-width: 8px;
+    font-family: 'Jost', 'sans-serif';
+    padding: 20px;
+    margin-top: 5vh;
+    overflow: scroll;
+}
+
+.Filter-title-content {
+    display: inline-block;
+    position: relative;
+    font-weight: bold;
+    font-size: 34px;
+    z-index: 0;
+
+    &::before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: -5px;
+        bottom: 5px;
+        width: calc(100% + 10px);
+        height: 25px;
+        background: #CE8F8F;
+        z-index: -1;
+        border-radius: 2px;
+    }
+}
+
+.Filter-tags {
+    display: flex;
+    flex-direction: column;
+}
+
+.Filter-tag-content {
+    display: inline-block;
+    font-size: 26px;
+    position: relative;
+    z-index: 0;
+    margin-top: 15px;
+
+    &::before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: -5px;
+        width: calc(100% + 10px);
+        height: 24px;
+        background: #8FC3CE;
+        z-index: -1;
+        border-radius: 2px;
+    }
+}
+
+.Projects {
+    grid-column-start: 3;
+    display: flex;
+    margin-top: 5vh;
+}
+
+.ProjectsWrapper {
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    flex: 0 0 100%;
+}
+
+.Project {
+    width: 360px;
+    height: 330px;
+    margin: 30px;
+    margin-top: 0;
+    background: rgba(#CE8F8F, 0.5);
+    border-radius: 8px;
+    border: 2px solid var(--backgroundColor);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    &:hover {
+        border-left-width: 4px;
+        border-bottom-width: 4px;
+    }
+}
+
+.Project-left-action, .Project-right-action {
+    background: var(--contentColor);
+    border: 2px solid var(--backgroundColor);
+    position: relative;
+    top: 2px;
+    flex: 0 0 33%;
+    height: 120px;
+}
+
+.Project-left-action {
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    left: -2px
+}
+.Project-right-action {
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    right: -2px
+}

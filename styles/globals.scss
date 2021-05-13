@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;700&family=Rokkitt:wght@100;400;700&display=swap');
+
+
+:root {
+  --backgroundColor: #222;
+  --contentColor: #fff;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body::-webkit-scrollbar {
+  height: 20px;
+  width: 6px;
+}
+body::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  /* Add :hover, :active as needed */
+}
+body::-webkit-scrollbar-thumb:vertical {
+  min-height: purple;
+}
+body::-webkit-scrollbar-thumb:horizontal {
+  min-width: 20px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.MaskedBorder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.MaskedBorder-frame {
+  position: fixed;
+  border: 2px solid var(--backgroundColor);
+  bottom: 5%;
+  top: 5%;
+  right: 5%;
+  left: 5%;
+
+  &.opposite-color {
+    border: 2px solid var(--contentColor);
+  }
+}

@@ -1,0 +1,208 @@
+{
+    "title": "Realisations personelles",
+    "realisations": [
+        {
+            "projectName": "C.V en ligne",
+            "projectSlug": "portfolio-v-1",
+            "repoPath": "",
+            "directUrl": "https://ju314ter.github.io/Curriculum-JF-V1/",
+            "illustrationPath": [
+                "/projets/JFW.JPG",
+                "/projets/JFW1.JPG",
+                "/projets/JFW2.JPG",
+                "/projets/JFW3.JPG",
+                "/projets/JFW4.JPG"
+            ],
+            "tags": [
+                "jQuery",
+                "vanilla"
+            ],
+            "description": "Curriculum en ligne pour ma recherche d'alternance"
+        },
+        {
+            "projectName": "Portfolio",
+            "projectSlug": "portfolio-v-2",
+            "directUrl": "https://julienfeger.com",
+            "repoPath": "https://github.com/ju314ter/next-portofolio",
+            "illustrationPath": [
+                "/projets/JFWP.JPG",
+                "/projets/JFWP1.JPG",
+                "/projets/JFWP2.JPG",
+                "/projets/JFWP3.JPG",
+                "/projets/JFWP4.JPG"
+            ],
+            "tags": [
+                "react",
+                "nextJS",
+                "SSR",
+                "react-awesome-slider",
+                "react-spring",
+                "typescript",
+                "sass"
+            ],
+            "description": "Premier portfolio en ligne en tant que développeur junior."
+        },
+        {
+            "projectName": "Aile du Maine",
+            "projectSlug": "aile-du-maine",
+            "repoPath": "https://github.com/LADMP/ADM",
+            "directUrl": "https://suspicious-swirles-87e9f9.netlify.app",
+            "illustrationPath": [
+                "/projets/ADM1.JPG",
+                "/projets/ADM2.JPG",
+                "/projets/ADM3.JPG",
+                "/projets/ADM4.JPG"
+            ],
+            "tags": [
+                "react",
+                "GatsbyJS",
+                "SSR",
+                "Netlify",
+                "react-spring",
+                "graphQL",
+                "facebook api",
+                "sass"
+            ],
+            "description": "Website sous Gatsby pour l'association des \"Les Ailes du Maine\""
+        },
+        {
+            "projectName": "Catalogue App",
+            "projectSlug": "catalogue-app",
+            "portrait": true,
+            "repoPath": "https://github.com/ju314ter/CatalogueApp",
+            "directUrl": "https://play.google.com/store/apps/details?id=com.catalogueapp",
+            "illustrationPath": [
+                "/projets/patisserie2.PNG",
+                "/projets/patisserie1.PNG"
+            ],
+            "tags": [
+                "react-native",
+                "headless CMS",
+                "mobile"
+            ],
+            "description": "Catalogue réalisé pour assister les équipes de vente d'une boulangerie U via un présentoir disposant de l'application"
+        },
+        {
+            "projectName": "TFT wiki",
+            "projectSlug": "tft-wiki-app",
+            "repoPath": "https://github.com/ju314ter/TFT-Helpers-React-native",
+            "portrait": true,
+            "illustrationPath": [
+                "/projets/tft1.jpg",
+                "/projets/tft2.jpg",
+                "/projets/tft3.jpg",
+                "/projets/tft4.jpg"
+            ],
+            "tags": [
+                "react-native",
+                "expo",
+                "mobile"
+            ],
+            "description": "Application style wiki pour le jeu vidéo Teamfight Tactics developpé par Riot Games"
+        },
+        {
+            "projectName": "Landingpage builder",
+            "projectSlug": "landingpage-builder",
+            "repoPath": "https://github.com/ju314ter/angular-landing-page-builder",
+            "directUrl": "https://ju314ter.github.io/angular-landing-page-builder/",
+            "illustrationPath": [
+                "/projets/lpbuilder.png"
+            ],
+            "tags": [
+                "angular",
+                "NgRx",
+                "typescript",
+                "scss"
+            ],
+            "description": "Concept utilisant Ngrx et Angular afin de créer et d'éditer des landings pages via un fichier de configuration json"
+        },
+        {
+            "projectName": "Catch'up",
+            "projectSlug": "catchup-app",
+            "portrait": true,
+            "repoPath": [
+                {
+                    "front": "https://github.com/ju314ter/alsajuto_mobile"
+                },
+                {
+                    "back": "https://github.com/Aninot/Alsatoju_Event_Node_API"
+                }
+            ],
+            "illustrationPath": [
+                "/projets/matcher.PNG",
+                "/projets/maquette.jpg",
+                "/projets/mobilerendu0.png",
+                "/projets/mobilerendu1.png",
+                "/projets/mobilerendu3.png",
+                "/projets/itsamatch.PNG"
+            ],
+            "tags": [
+                "react-native",
+                "react-native-animated",
+                "postgreSQL",
+                "heroku",
+                "expo"
+            ],
+            "description": "Prototype d'application de dating basé sur l'affinité au gaming. Heroku PAAS for continuous delivery."
+        },
+        {
+            "projectName": "Angular multimedia platform v2",
+            "projectSlug": "angular-multimedia-platform-v2",
+            "repoPath": "",
+            "illustrationPath": [
+                "/projets/cliq1.jpg",
+                "/projets/cliq2.jpg",
+                "/projets/cliq3.jpg",
+                "/projets/cliq4.jpg",
+                "/projets/cliq5.jpg"
+            ],
+            "tags": [
+                "angular",
+                "ngrx",
+                "typescript",
+                "scss"
+            ],
+            "description": "Projet d'entreprise en tant qu'alternant frontend"
+        },
+        {
+            "projectName": "Mockup travel agency",
+            "projectSlug": "travel-agency-mockup",
+            "repoPath": "https://github.com/ju314ter/VoyagePourTous",
+            "illustrationPath": [
+                "/projets/VPT.png"
+            ],
+            "tags": [
+                "php",
+                "symfony",
+                "mysql"
+            ],
+            "description": "Projet réalisé durant une formation d'initiation a Symfony"
+        },
+        {
+            "projectName": "Wordpress personnal online curriculum",
+            "projectSlug": "wordpress-curriculum-helwu",
+            "repoPath": "",
+            "illustrationPath": [
+                "/projets/helwu.PNG"
+            ],
+            "tags": [
+                "wordpress",
+                "elementor"
+            ],
+            "description": "Wordpress for an art-therapist online cursus"
+        },
+        {
+            "projectName": "MixR: eat and meet",
+            "projectSlug": "mixr-social-platform",
+            "repoPath": "",
+            "illustrationPath": [
+                "/projets/mixr.png"
+            ],
+            "tags": [
+                "wordpress",
+                "buddypress"
+            ],
+            "description": "Wordpress concept to plan dinners at home with strangers in order to fight against social isolation"
+        }
+    ]
+}
