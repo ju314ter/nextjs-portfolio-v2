@@ -1,5 +1,4 @@
 import React, {useState,useEffect,useRef} from 'react';
-import useMeasure from 'use-measure';
 
 const Section = (props:any):React.ReactNode => {
     return (
