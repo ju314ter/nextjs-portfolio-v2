@@ -8,10 +8,11 @@ import shuffle from 'lodash.shuffle'
 import Project from './project'
 import GridTag from './tag'
 
+const colorArray = ['#CE8F8F','#8FC3CE']
+
 const GridProject = () => {
 
     const minColWidth = 420
-    const [refContainer, containerBounds] = useMeasure()
     const [refGrid, boundsGrid] = useMeasure()
     const [projectHeight, setProjectHeight] = useState(330)
     const [columns, setColumns] = useState(2)
@@ -37,24 +38,33 @@ const GridProject = () => {
         return [heights, gridItems]
     }, [columns, items, boundsGrid.width, projectHeight])
 
-    // // const transitions = useTransition(
-    // //     gridItems,
-    // //     (item: { projectName: string; height: number; width: number; left: number; top: number; }) => item.projectName,
-    // //     {
-    // //         from: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height, opacity: 0 }),
-    // //         enter: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height, opacity: 1 }),
-    // //         update: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height }),
-    // //         leave: { height: 0, opacity: 0 },
-    // //         config: { mass: 5, tension: 500, friction: 100 },
-    // //         trail: 25
-    // //     }
-    // // )
+    // const transitions = useTransition(
+    //     gridItems,
+    //     (item: { projectName: string; height: number; width: number; left: number; top: number; }) => item.projectName,
+    //     {
+    //         from: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height, opacity: 0 }),
+    //         enter: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height, opacity: 1 }),
+    //         update: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height }),
+    //         leave: { height: 0, opacity: 0 },
+    //         config: { mass: 5, tension: 500, friction: 100 },
+    //         trail: 25
+    //     }
+    // )
+
+    const transitions = useTransition(gridItems, {
+        keys: (item: { projectName: string; height: number; width: number; left: number; top: number; }) => item.projectName,
+        from: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height, opacity: 0 }),
+        enter: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height, opacity: 1 }),
+        update: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height }),
+        leave: { height: 0, opacity: 0 },
+        config: { mass: 5, tension: 500, friction: 100 },
+        trail: 25
+      })
 
     useEffect(() => {
         // setProjectHeight(330)
-        setColumns(Math.floor(containerBounds.width / minColWidth))
-        console.log(containerBounds)
-    }, [containerBounds, projectHeight])
+        setColumns(Math.floor(boundsGrid.width / minColWidth))
+    }, [boundsGrid, projectHeight])
 
     const toggle = (tag: string) => {
         switch(tag) {
@@ -90,68 +100,68 @@ const GridProject = () => {
     //     properties.selectedProject(project)
     // }
 
-    if (!isFinite(Math.max(...heights))) { 
-        return (
-            <div className='ProjectGridWrapper' ref={refContainer}>
-                {
-                    containerBounds.width < minColWidth ?
-                    items.map((item, index)=>{
-                        return (
-                            <div key={'project-mobile-' + index}>
-                                <div className='Project'>
-                                    <div className='Project-left-action'></div>
-                                    <div className='Project-right-action'></div>
-                                </div>
-                            </div>
-                        )
-                    }) : null
-                }
-            </div>
-        ) 
-    }
-    else {
-        return (
-            <div className='ProjectGridWrapper' ref={refContainer}>
+    return (
+        <div className='ProjectGridWrapper'>
+            <div className='Filter-wrapper'>
                 <div className='Filter'>
                     <div className='Filter-title-wrapper'>
                         <span className='Filter-title-content'>Filter by tags</span>
                     </div>
                     <div className='Filter-tags'>
                         {tagsArray && tagsArray.map((tag, i)=>{
-                            return <GridTag index={i} selected={selectedTags.includes(tag)} tag={tag} onTagClick={()=>(toggle(tag))} />
+                            return <GridTag key={tag + '-' + i} color={colorArray[Math.floor(Math.random() * colorArray.length)]} index={i} selected={selectedTags.includes(tag)} tag={tag} onTagClick={()=>(toggle(tag))} />
                         })}
                     </div>
                 </div>
-                <div className='Projects'>
-                    <div className='ProjectsWrapper' ref={refGrid}>
-                        <div className='Project'>
-                            <div className='Project-left-action'></div>
-                            <div className='Project-right-action'></div>
-                        </div>
-                    </div>
+            </div>
+            <div className='Projects'>
+                <div className='ProjectsWrapper' ref={refGrid}>
+                    {
+                        !isFinite(Math.max(...heights)) ? null : ( transitions((props, item) => {
+                            return (
+                            <a.div
+                            key={item}
+                            className="animated-item-wrapper"
+                            style={{
+                                ...props
+                            }}>
+                                <div className='Project' style={{backgroundColor: colorArray[Math.floor(Math.random() * colorArray.length)]}}>
+                                    <div className='Project-left-action'></div>
+                                    <div className='Project-right-action'></div>
+                                </div>
+                            </a.div>
+                        )}))
+                    }
                 </div>
             </div>
-        );
-    }
-
+        </div>
+    );
 };
 
 export default GridProject;
 
-                {/* 
-                <div style={{ width: '100%', height: Math.max(...heights) + 100}}>
-                    <div ref={ref} className="grid">
-                        { 
-                            // transitions.map(({ item, key, props },i) => {
-                            // return (
-                            //     <a.div
-                            //         key={key + '-' + i}
-                            //         className="animated-item-wrapper"
-                            //         style={{ ...props }}
-                            //     >
-                            //         <Project onClick={handleProject} project={item} />
-                            //     </a.div>
-                            // )})
-                        }
-                    </div>
-                </div> */}
+
+    // transitions.map(({ item, key, props },i) => {
+    // return (
+    //     <a.div
+    //         key={key + '-' + i}
+    //         className="animated-item-wrapper"
+    //         style={{ ...props }}
+    //     >
+    //         <Project onClick={handleProject} project={item} />
+    //     </a.div>
+    // )})
+
+
+    // {transitions((props, item) => (
+    //     <animated.div
+    //       style={{
+    //         opacity: opacity.to(item.op),
+    //         transform: opacity
+    //           .to(item.trans)
+    //           .to(y => `translate3d(0,${y}px,0)`),
+    //       }}>
+    //       {item.fig}
+    //     </animated.div>
+    //   ))}
+                

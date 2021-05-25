@@ -9,31 +9,63 @@
 .ProjectGridWrapper {
     grid-column: 2 / span 1;
     display: grid;
-    grid-template-columns: 20% 5% 75%;
+    grid-template-columns: 30% 3% 67%;
+}
+
+.Filter-wrapper {
+    width: clamp(250px, 100%, 400px);
+    height: 100%;
+    clip-path: polygon(0 0, 100% 0, 100% 300%, 0 300%);
 }
 
 .Filter {
     grid-column-start: 1;
+    position: fixed;
+    top: 5vh;
     flex-direction: column;
     display: flex;
     flex-direction: column;
     height: 80vh;
-    width: clamp(250px, 100%, 400px);
+    width: inherit;
     justify-content: flex-start;
     border: 2px solid var(--backgroundColor);
     border-bottom-width: 8px;
     font-family: 'Jost', 'sans-serif';
-    padding: 20px;
     margin-top: 5vh;
     overflow: scroll;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+
+    &::-webkit-scrollbar {
+        height: 20px;
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.1);
+        /* Add :hover, :active as needed */
+    }
+    &::-webkit-scrollbar-thumb:vertical {
+        min-height: purple;
+    }
+    &::-webkit-scrollbar-thumb:horizontal {
+        min-width: 20px;
+    }
 }
 
 .Filter-title-content {
     display: inline-block;
     position: relative;
-    font-weight: bold;
     font-size: 34px;
+    font-weight: bold;
     z-index: 0;
+    margin: 20px;
+    margin-bottom: 0;
 
     &::before {
         content: ' ';
@@ -52,6 +84,11 @@
 .Filter-tags {
     display: flex;
     flex-direction: column;
+    margin: 20px;
+}
+
+.Filter-tag-wrapper {
+    position: relative;
 }
 
 .Filter-tag-content {
@@ -60,19 +97,22 @@
     position: relative;
     z-index: 0;
     margin-top: 15px;
+}
 
-    &::before {
-        content: ' ';
-        display: block;
-        position: absolute;
-        bottom: 0;
-        left: -5px;
-        width: calc(100% + 10px);
-        height: 24px;
-        background: #8FC3CE;
-        z-index: -1;
-        border-radius: 2px;
-    }
+.Filter-tag-background {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: -5px;
+    height: 24px;
+    z-index: -1;
+    border-radius: 2px;
+}
+
+.Filter-tag-button-remove {
+    margin-left: 10px;
+    position: relative;
+    top: 6px;
 }
 
 .Projects {
@@ -85,16 +125,25 @@
     display: flex;
     justify-content: center;
     align-content: flex-start;
+    position: relative;
     flex-wrap: wrap;
     flex: 0 0 100%;
+}
+
+.animated-item-wrapper {
+    display:flex;
+    justify-content: center;
+    position: absolute;
+    will-change: auto, width, height, opacity;
+    padding: 15px;
+    text-align: center;
+    left:0;
 }
 
 .Project {
     width: 360px;
     height: 330px;
-    margin: 30px;
     margin-top: 0;
-    background: rgba(#CE8F8F, 0.5);
     border-radius: 8px;
     border: 2px solid var(--backgroundColor);
     transition: all 0.3s ease-in-out;
@@ -114,7 +163,7 @@
     position: relative;
     top: 2px;
     flex: 0 0 33%;
-    height: 120px;
+    height: 100px;
 }
 
 .Project-left-action {
