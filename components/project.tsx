@@ -1,38 +1,32 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
+import React, { useEffect, useState, useRef } from "react";
+import { animated as a, useSpring } from "react-spring";
+import Button from '@material-ui/core/Button';
+import CancelIcon from '@material-ui/icons/Cancel';
+
 import useMeasure from 'react-use-measure';
-import { useSpring, useTransition, animated } from "react-spring";
 
 
-const Project = ({ project, onClick }) => {
+const Project = ({onClick, color, project}:{color?: string, onClick: ()=>void, project: any}) => {
 
-    if (!project) { return null; }
+    if (!project) { return null}
 
-    const [open, toggle] = useState(false)
-    const [ref, bounds] = useMeasure()
-    const props = useSpring({ top: open ? 0 : bounds.height })
-    
+    const [isHovered, setHovered] = useState(false)
+    const overlayOpacitySpring = useSpring({opacity : isHovered ? 0 : 0.3})
 
-    if(project.tags && project.description && project.projectName) {
-        return (
-            <div className="project-container"
-                onClick={()=>(onClick(project))}
-                onMouseEnter={() => { toggle(true) }}
-                onMouseLeave={() => { toggle(false) }}>
-                <div className="simple-trans-main">
-                    <div className="img-wrapper"><img src={project.illustrationPath[0]} style={{ height: '100%' }} /></div>
-                </div>
-                <div className="desc-wrapper" ref={ref}>
-                    <h2 className="titre">{project.projectName}</h2>
-                    <span className="description">{project.description}</span>
-                    <animated.div className="tags-wrapper" style={{ top: props.top }}>
-                        {project.tags.map((tag, i) => {
-                            return <animated.div className="tag" key={tag + i} style={{ opacity: props.top.interpolate([bounds.height, 0], [0, 1]) }}>{tag}</animated.div>
-                        })}
-                    </animated.div>
-                </div>
-            </div>
-        );
-    } else { return null}
+    useEffect(()=>{
+        // console.log(project)
+    }, [project])
+
+    return (
+    <div className='Project' style={{background:`url(${project.illustrationPath[0]})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
+        onClick={onClick}
+        onMouseEnter={()=>{setHovered(true)}}
+        onMouseLeave={()=>{setHovered(false)}}>
+        <a.div className="" style={{position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, opacity: overlayOpacitySpring.opacity, background: color}}></a.div>
+        <div className='Project-left-action'></div>
+        <div className='Project-right-action'></div>
+    </div>
+    );
 };
 
 export default Project;

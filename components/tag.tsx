@@ -17,7 +17,7 @@ const GridTag = ({selected, tag, onTagClick, index, color}:{selected?: boolean, 
         <div className='Filter-tag-wrapper' onClick={onTagClick}
         onMouseEnter={()=>{setBgStyle.start({width: textBounds.width + 10})}}
         onMouseLeave={()=>{setBgStyle.start({width: 0})}} >
-            <span className='Filter-tag-content' ref={textRef}>{tag}</span>
+            <span className='Filter-tag-content' style={tag=='Randomize' ? {fontWeight:'bold'}: null} ref={textRef}>{tag}</span>
             {tag!=='Randomize' && (<a.span style={textStyle} className='Filter-tag-button-remove'><CancelIcon/></a.span>)}
             <a.span className='Filter-tag-background' style={bgStyle}></a.span>
         </div>

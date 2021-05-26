@@ -8,11 +8,22 @@ import shuffle from 'lodash.shuffle'
 import Project from './project'
 import GridTag from './tag'
 
-const colorArray = ['#CE8F8F','#8FC3CE']
+const colorArray = ['rgb(206,143,143)','rgb(143,195,206)','rgb(143, 206, 176)','rgb(157, 143, 206)','rgb(143, 206, 200)','rgb(206, 164, 143)','rgb(204, 206, 143)','rgb(206, 143, 181)']
+
+interface IProject {
+    projectName: string,
+    projectSlug: string,
+    portrait?: boolean,
+    repoPath: string,
+    directUrl?: string,
+    illustrationPath: string[],
+    tags: string[],
+    description: string
+}
 
 const GridProject = () => {
 
-    const minColWidth = 420
+    const minColWidth = 400
     const [refGrid, boundsGrid] = useMeasure()
     const [projectHeight, setProjectHeight] = useState(330)
     const [columns, setColumns] = useState(2)
@@ -37,19 +48,6 @@ const GridProject = () => {
         })
         return [heights, gridItems]
     }, [columns, items, boundsGrid.width, projectHeight])
-
-    // const transitions = useTransition(
-    //     gridItems,
-    //     (item: { projectName: string; height: number; width: number; left: number; top: number; }) => item.projectName,
-    //     {
-    //         from: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height, opacity: 0 }),
-    //         enter: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height, opacity: 1 }),
-    //         update: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height }),
-    //         leave: { height: 0, opacity: 0 },
-    //         config: { mass: 5, tension: 500, friction: 100 },
-    //         trail: 25
-    //     }
-    // )
 
     const transitions = useTransition(gridItems, {
         keys: (item: { projectName: string; height: number; width: number; left: number; top: number; }) => item.projectName,
@@ -84,7 +82,7 @@ const GridProject = () => {
 
                 } else {
                     selectedTags.length === 1 ?
-                        set(data.realisations.filter(real=>real.tags.includes(tag)))
+                        set(formattedData.filter(real=>real.tags.includes(tag)))
                         :
                         set((prevState)=>(formattedData
                                             .filter(real=>real.tags.includes(tag) && !selectedTags.some(selectedTag => real.tags.includes(selectedTag)))
@@ -96,9 +94,10 @@ const GridProject = () => {
         }
     }
 
-    // const handleProject = (project) => {
-    //     properties.selectedProject(project)
-    // }
+    const handleProject = (project) => {
+        // properties.selectedProject(project)
+        console.log(project)
+    }
 
     return (
         <div className='ProjectGridWrapper'>
@@ -125,10 +124,7 @@ const GridProject = () => {
                             style={{
                                 ...props
                             }}>
-                                <div className='Project' style={{backgroundColor: colorArray[Math.floor(Math.random() * colorArray.length)]}}>
-                                    <div className='Project-left-action'></div>
-                                    <div className='Project-right-action'></div>
-                                </div>
+                                <Project project={item} color={colorArray[Math.floor(Math.random() * colorArray.length)]} onClick={()=>{handleProject(item)}}/>
                             </a.div>
                         )}))
                     }
@@ -139,29 +135,3 @@ const GridProject = () => {
 };
 
 export default GridProject;
-
-
-    // transitions.map(({ item, key, props },i) => {
-    // return (
-    //     <a.div
-    //         key={key + '-' + i}
-    //         className="animated-item-wrapper"
-    //         style={{ ...props }}
-    //     >
-    //         <Project onClick={handleProject} project={item} />
-    //     </a.div>
-    // )})
-
-
-    // {transitions((props, item) => (
-    //     <animated.div
-    //       style={{
-    //         opacity: opacity.to(item.op),
-    //         transform: opacity
-    //           .to(item.trans)
-    //           .to(y => `translate3d(0,${y}px,0)`),
-    //       }}>
-    //       {item.fig}
-    //     </animated.div>
-    //   ))}
-                
