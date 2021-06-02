@@ -124,7 +124,7 @@ const GridProject = () => {
                             style={{
                                 ...props
                             }}>
-                                <Project project={item} color={colorArray[Math.floor(Math.random() * colorArray.length)]} onClick={()=>{handleProject(item)}}/>
+                                <Project project={item} projectHeight={projectHeight} color={colorArray[Math.floor(Math.random() * colorArray.length)]} onClick={()=>{handleProject(item)}}/>
                             </a.div>
                         )}))
                     }

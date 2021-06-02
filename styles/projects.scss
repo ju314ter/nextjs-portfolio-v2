@@ -89,6 +89,7 @@
 
 .Filter-tag-wrapper {
     position: relative;
+    cursor: pointer;
 }
 
 .Filter-tag-content {
@@ -156,6 +157,8 @@
     &:hover {
         border-left-width: 4px;
         border-bottom-width: 4px;
+        border-right-width: 1px;
+        border-top-width: 1px;
     }
 }
 
