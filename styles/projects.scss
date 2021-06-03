@@ -4,9 +4,8 @@
     width: 100%;
     min-height: 120vh;
     background: var(--contentColor);
-    overflow: scroll;
-    scrollbar-width: none;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    overflow: hidden;
 }
 
 .ProjectGridWrapper {
@@ -119,14 +118,10 @@
     top: 6px;
 }
 
-.Projects {
+.ProjectsWrapper {
     grid-column-start: 3;
     display: flex;
     margin-top: 5vh;
-}
-
-.ProjectsWrapper {
-    display: flex;
     justify-content: center;
     align-content: flex-start;
     position: relative;

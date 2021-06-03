@@ -21,7 +21,7 @@ interface IProject {
     description: string
 }
 
-const GridProject = () => {
+const GridProject = (props) => {
 
     const minColWidth = 400
     const [refGrid, boundsGrid] = useMeasure()
@@ -46,6 +46,7 @@ const GridProject = () => {
             const top = (heights[column] += projectHeight + 25) - projectHeight + 25 // y = it's just the height of the current column
             return { ...child, left, top, width: boundsGrid.width / columns, height: projectHeight + 25 }
         })
+        props.getHeight(heights)
         return [heights, gridItems]
     }, [columns, items, boundsGrid.width, projectHeight])
 
@@ -60,7 +61,6 @@ const GridProject = () => {
       })
 
     useEffect(() => {
-        // setProjectHeight(330)
         setColumns(Math.floor(boundsGrid.width / minColWidth))
     }, [boundsGrid, projectHeight])
 
@@ -113,22 +113,20 @@ const GridProject = () => {
                     </div>
                 </div>
             </div>
-            <div className='Projects'>
-                <div className='ProjectsWrapper' ref={refGrid}>
-                    {
-                        !isFinite(Math.max(...heights)) ? null : ( transitions((props, item) => {
-                            return (
-                            <a.div
-                            key={item}
-                            className="animated-item-wrapper"
-                            style={{
-                                ...props
-                            }}>
-                                <Project project={item} projectHeight={projectHeight} color={colorArray[Math.floor(Math.random() * colorArray.length)]} onClick={()=>{handleProject(item)}}/>
-                            </a.div>
-                        )}))
-                    }
-                </div>
+            <div className='ProjectsWrapper' ref={refGrid}>
+                {
+                    !isFinite(Math.max(...heights)) ? null : ( transitions((props, item) => {
+                        return (
+                        <a.div
+                        key={item}
+                        className="animated-item-wrapper"
+                        style={{
+                            ...props
+                        }}>
+                            <Project project={item} projectHeight={projectHeight} color={colorArray[Math.floor(Math.random() * colorArray.length)]} onClick={()=>{handleProject(item)}}/>
+                        </a.div>
+                    )}))
+                }
             </div>
         </div>
     );

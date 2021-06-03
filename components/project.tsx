@@ -48,7 +48,6 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
 
     const handleClick= (e) => {
         setClicked(!isClicked)
-        console.log(projectRefDetail.current)
         projectRefDetail.current.classList.toggle('active')
     }
 
