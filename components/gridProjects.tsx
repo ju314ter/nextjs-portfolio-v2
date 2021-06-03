@@ -23,9 +23,9 @@ interface IProject {
 
 const GridProject = (props) => {
 
-    const minColWidth = 400
+    const minColWidth = 320
     const [refGrid, boundsGrid] = useMeasure()
-    const [projectHeight, setProjectHeight] = useState(330)
+    const [projectHeight, setProjectHeight] = useState(280)
     const [columns, setColumns] = useState(2)
     const formattedData: Array<any> = data.realisations
     const [items, set] = useState(formattedData)

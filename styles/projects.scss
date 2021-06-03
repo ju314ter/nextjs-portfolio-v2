@@ -11,12 +11,13 @@
 .ProjectGridWrapper {
     grid-column: 2 / span 1;
     display: grid;
-    grid-template-columns: 30% 3% 67%;
+    grid-template-columns: 30% 70%;
 }
 
 .Filter-wrapper {
     width: clamp(250px, 100%, 400px);
     height: 100%;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .Filter {
@@ -119,7 +120,7 @@
 }
 
 .ProjectsWrapper {
-    grid-column-start: 3;
+    grid-column-start: 2;
     display: flex;
     margin-top: 5vh;
     justify-content: center;
@@ -141,8 +142,7 @@
 
 .Project {
     position: relative;
-    width: 360px;
-    height: 330px;
+    width: 300px;
     margin-top: 0;
     border-radius: 8px;
     border: 2px solid var(--backgroundColor);
@@ -164,14 +164,37 @@
     border: 2px solid var(--backgroundColor);
     position: relative;
     top: 2px;
-    flex: 0 0 33%;
+    flex: 0 0 30%;
     height: 100px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    & svg {
+        fill: var(--backgroundColor);
+    }
+    
+    &:hover {
+        background: var(--backgroundColor);
+
+        & svg {
+            fill: var(--contentColor);
+        }
+    }
+
+    &.unique {
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        margin-right: auto;
+        margin-left: auto;
+    }
 }
 
 .Project-left-action {
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
-    left: -2px
+    left: -2px;
 }
 .Project-right-action {
     border-top-left-radius: 8px;

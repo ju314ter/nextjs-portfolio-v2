@@ -21,9 +21,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 650px;
-  min-width: 320px;
-  min-height: 350px;
+  width: clamp(320px,50%,650px);
   border: 2px solid var(--backgroundColor);
   border-bottom-width: 8px;
   border-radius: 8px;
@@ -51,7 +49,7 @@
   font-size: 96px;
   font-weight: 400;
   color: var(--backgroundColor);
-  margin: 10px;
+  margin: 5% 10% 5% 10%;
   font-family: 'Jost', sans-serif;
 }
 
@@ -67,15 +65,15 @@
 
 .LogoWrapper {
   position: absolute;
-  margin-top: 20px;
   right: 5%;
   height: 700px;
   width: 50%;
   overflow: hidden;
 
   @media (max-width: 1000px) {
-    position: static;
+    position: relative;
     width: 65%;
+    left: 10%;
   }
 
   .logo {

@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useRouter } from 'next/router'
 import { animated as a, useSpring, useSpringRef } from "react-spring";
 import Button from '@material-ui/core/Button';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Github from '../public/socialicons/github.svg';
+import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 
 import useMeasure from 'react-use-measure';
 import styled, { keyframes } from 'styled-components';
@@ -36,6 +38,8 @@ z-index: 500;
 const Project = ({onClick, color, project, projectHeight}:{color?: string, onClick: ()=>void, project: any, projectHeight: number}) => {
     
     if (!project) { return null}
+
+    const router = useRouter()
     
     const [isHovered, setHovered] = useState(false)
     const [isClicked, setClicked] = useState(false)
@@ -53,13 +57,16 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
 
     return (
         <>
-            <div className='Project' ref={projectRef} style={{background:`url(${project.illustrationPath[0]})`, backgroundSize: 'cover', backgroundPosition: 'center', height: projectHeight}}
+            <div className='Project' ref={projectRef} style={{background:`url(${project.illustrationPath[0]}) no-repeat center`, backgroundSize: !!project.portrait  ? 'contain':'cover', height: projectHeight}}
                 onClick={handleClick}
                 onMouseEnter={()=>{setHovered(true)}}
                 onMouseLeave={()=>{setHovered(false)}}>
-                <a.div className="" style={{position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, opacity: overlayOpacitySpring.opacity, background: color}}></a.div>
-                <div className='Project-left-action'><Github style={{width: '60%', height: '100%'}} /></div>
-                <div className='Project-right-action'></div>
+                {!!project.repoPath && !! project.directUrl && (<>
+                    <div className='Project-left-action' onClick={(e)=>{router.push(project.repoPath) && e.stopPropagation()}}><Github style={{width: '60%', height: '100%'}} /></div>
+                    <div className='Project-right-action' onClick={(e)=>{router.push(project.directUrl) && e.stopPropagation()}} ><DynamicFeedIcon style={{width: '60%', height: '100%'}} /></div></>
+                )}
+                {!!project.repoPath && !project.directUrl &&  <div className='Project-left-action unique' onClick={()=>{router.push(project.repoPath)}}><Github style={{width: '60%', height: '100%'}} /></div>}
+                {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={()=>{router.push(project.directUrl)}} ><DynamicFeedIcon style={{width: '60%', height: '100%'}} /></div>}
             </div>
             <ProjectDetail {...{projectPos, projectHeight, project, isClicked}} ref={projectRefDetail} onClick={handleClick}>
                 <div style={{width: '100%', height: '100%', background: `url(${project.illustrationPath[0]}) no-repeat center`, backgroundSize: 'auto 100%', borderRadius: 8}}/>
