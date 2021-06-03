@@ -108,7 +108,7 @@ const GridProject = () => {
                     </div>
                     <div className='Filter-tags'>
                         {tagsArray && tagsArray.map((tag, i)=>{
-                            return <GridTag key={tag + '-' + i} color={colorArray[Math.floor(Math.random() * colorArray.length)]} index={i} selected={selectedTags.includes(tag)} tag={tag} onTagClick={()=>(toggle(tag))} />
+                            return <GridTag key={tag + '-' + i} color={colorArray[Math.floor(Math.random() * colorArray.length)]} index={i} isSelected={selectedTags.includes(tag)} tag={tag} onTagClick={()=>(toggle(tag))} />
                         })}
                     </div>
                 </div>

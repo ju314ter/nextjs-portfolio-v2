@@ -1,24 +1,27 @@
 import React, { useEffect, useState, useRef } from "react";
 import { animated as a, useSpring } from "react-spring";
 import Button from '@material-ui/core/Button';
-import CancelIcon from '@material-ui/icons/Cancel';
-
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import useMeasure from 'react-use-measure';
 
 
-const GridTag = ({selected, tag, onTagClick, index, color}:{selected?: boolean, color?: string, tag: string, onTagClick: ()=>void, index: number, key: string}) => {
+const GridTag = ({isSelected, tag, onTagClick, index, color}:{isSelected?: boolean, color?: string, tag: string, onTagClick: ()=>void, index: number, key: string}) => {
     const [textRef, textBounds] = useMeasure()
+    const [isHovered, setHovered] = useState(false)
 
-    const textStyle = useSpring({maxWidth: selected ? 500 : 0, opacity: selected ? 1 : 0})
+    const textStyleRemove = useSpring({maxWidth: isSelected ? 500 : 0, opacity: isSelected ? 1 : 0})
+    const textStyleAdd = useSpring({maxWidth: isHovered ? 500 : 0, opacity: isHovered ? 1 : 0})
 
     const [bgStyle, setBgStyle] = useSpring(() => ({ width: 0, background: color }))
     
     return (
         <div className='Filter-tag-wrapper' onClick={onTagClick}
-        onMouseEnter={()=>{setBgStyle.start({width: textBounds.width + 10})}}
-        onMouseLeave={()=>{setBgStyle.start({width: 0})}} >
+        onMouseEnter={()=>{setBgStyle.start({width: textBounds.width + 10}) && setHovered(true)}}
+        onMouseLeave={()=>{setBgStyle.start({width: 0}) && setHovered(false)}} >
             <span className='Filter-tag-content' style={tag=='Randomize' ? {fontWeight:'bold'}: null} ref={textRef}>{tag}</span>
-            {tag!=='Randomize' && (<a.span style={textStyle} className='Filter-tag-button-remove'><CancelIcon/></a.span>)}
+            {tag!=='Randomize' && isHovered && !isSelected ? (<a.span style={textStyleAdd} className='Filter-tag-button-remove'><AddCircleIcon/></a.span>) : null}
+            {tag!=='Randomize' && isSelected ? (<a.span style={textStyleRemove} className='Filter-tag-button-remove'><RemoveCircleIcon/></a.span>) : null}
             <a.span className='Filter-tag-background' style={bgStyle}></a.span>
         </div>
     );

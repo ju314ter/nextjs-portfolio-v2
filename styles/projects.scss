@@ -2,8 +2,11 @@
     display: grid;
     grid-template-columns: 5% 90% 5%;
     width: 100%;
-    min-height: 100vh;
+    min-height: 120vh;
     background: var(--contentColor);
+    overflow: scroll;
+    scrollbar-width: none;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .ProjectGridWrapper {
@@ -15,7 +18,6 @@
 .Filter-wrapper {
     width: clamp(250px, 100%, 400px);
     height: 100%;
-    clip-path: polygon(0 0, 100% 0, 100% 300%, 0 300%);
 }
 
 .Filter {
