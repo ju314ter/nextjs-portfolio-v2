@@ -4,7 +4,7 @@
         {
             "projectName": "C.V en ligne",
             "projectSlug": "portfolio-v-1",
-            "repoPath": "",
+            "repoPath": "https://github.com/ju314ter/Curriculum-JF-V1",
             "directUrl": "https://ju314ter.github.io/Curriculum-JF-V1/",
             "illustrationPath": [
                 "/projets/JFW.JPG",
@@ -35,8 +35,6 @@
                 "react",
                 "nextJS",
                 "SSR",
-                "react-awesome-slider",
-                "react-spring",
                 "typescript",
                 "sass"
             ],
@@ -58,7 +56,6 @@
                 "GatsbyJS",
                 "SSR",
                 "Netlify",
-                "react-spring",
                 "graphQL",
                 "facebook api",
                 "sass"

@@ -27,7 +27,7 @@ const GridProject = (props) => {
     const [refGrid, boundsGrid] = useMeasure()
     const [projectHeight, setProjectHeight] = useState(280)
     const [columns, setColumns] = useState(2)
-    const formattedData: Array<any> = data.realisations
+    const formattedData: Array<any> = shuffle(data.realisations)
     const [items, set] = useState(formattedData)
     let tagsArray = ["Randomize"];
     data.realisations.forEach((real)=>{

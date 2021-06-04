@@ -3,9 +3,8 @@
     grid-template-columns: 5% 90% 5%;
     width: 100%;
     min-height: 120vh;
-    background: var(--contentColor);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    overflow: hidden;
+    background: url('../public/bg-projects.png');
+    background-size: 16px;
 }
 
 .ProjectGridWrapper {
@@ -22,12 +21,12 @@
 
 .Filter {
     grid-column-start: 1;
+    top: 0;
     position: fixed;
-    top: 5vh;
     flex-direction: column;
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    height: 90vh;
     width: inherit;
     justify-content: flex-start;
     border: 2px solid var(--backgroundColor);
@@ -40,6 +39,7 @@
     -ms-overflow-style: -ms-autohiding-scrollbar;
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    background: whitesmoke;
 
     &::-webkit-scrollbar {
         height: 20px;

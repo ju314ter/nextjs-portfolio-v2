@@ -36,11 +36,11 @@ export default function Landing() {
         <link rel="icon" href="/favicon.ico" />
       </Head> */}
       <Section name='Landing'>
-        <div className='LandingCardWrapper' style={{top: scrollPos / 4}}>
+        <div className='LandingCardWrapper' style={{transform: `translate3d(0,${scrollPos /4}px,0)`}}>
           <h1 className='LandingCardWrapper-topCard-title'>Julien Féger</h1>
           <h2 className='LandingCardWrapper-topCard-subtitle'>Design & code</h2>
         </div>
-        <div className='LogoWrapper' style={{bottom: `calc(5% + ${scrollPos / 3 }px)`}}>
+        <div className='LogoWrapper' style={{transform: `translate3d(0,${scrollPos /-3}px,0)`}}>
           <Logo className='logo'/>
         </div>
         <div className='MaskedBorder'>
@@ -48,34 +48,36 @@ export default function Landing() {
         </div>
       </Section>
       <Section name='Tech'>
-        <div className='Tech-text-wrapper'>
-          <em className='Tech-text'>Creativity<span className="special-colorizing">X</span>Technique</em>
-        </div>
-        <div className='Tech-wheel-wrapper'>
-          <div className="Tech-wheel">
-            <div className="angular-logo-wrapper">
-                <Angular height={250} />
-            </div>
-            <div className="jira-logo-wrapper">
-                <Jira height={250} />
-            </div>
-            <div className="git-logo-wrapper">
-                <Git />
-            </div>
-            <div className="gitlab-logo-wrapper">
-                <Gitlab />
-            </div>
-            <div className="node-logo-wrapper">
-                <Node />
-            </div>
-            <div className="mongo-logo-wrapper">
-                <Mongo height={250} />
-            </div>
-            <div className="react-logo-wrapper">
-                <ReactLogo />
-            </div>
-            <div className="typescript-logo-wrapper">
-                <Typescript />
+        <div style={{position: 'relative', top: `0px`}}>
+          <div className='Tech-text-wrapper'>
+            <em className='Tech-text'>Creativity<span className="special-colorizing">X</span>Technique</em>
+          </div>
+          <div className='Tech-wheel-wrapper'>
+            <div className="Tech-wheel">
+              <div className="angular-logo-wrapper">
+                  <Angular height={250} />
+              </div>
+              <div className="jira-logo-wrapper">
+                  <Jira height={250} />
+              </div>
+              <div className="git-logo-wrapper">
+                  <Git />
+              </div>
+              <div className="gitlab-logo-wrapper">
+                  <Gitlab />
+              </div>
+              <div className="node-logo-wrapper">
+                  <Node />
+              </div>
+              <div className="mongo-logo-wrapper">
+                  <Mongo height={250} />
+              </div>
+              <div className="react-logo-wrapper">
+                  <ReactLogo />
+              </div>
+              <div className="typescript-logo-wrapper">
+                  <Typescript />
+              </div>
             </div>
           </div>
         </div>

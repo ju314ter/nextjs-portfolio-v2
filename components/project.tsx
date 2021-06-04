@@ -23,6 +23,10 @@ border-radius: 8px;
 transition: all 1 ease-in-out;
 will-change: width height top left opacity;
 z-index: 500;
+border-left-width: 4px;
+border-bottom-width: 4px;
+border-right-width: 1px;
+border-top-width: 1px;
 
     &:hover {
     transition: all 1s ease-in-out;
@@ -31,6 +35,7 @@ z-index: 500;
     left: 0;
     width: 100vw;
     height: 100vh;
+    border-radius:0;
     }
 `
 
@@ -69,7 +74,7 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
                 {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={()=>{router.push(project.directUrl)}} ><DynamicFeedIcon style={{width: '60%', height: '100%'}} /></div>}
             </div>
             <ProjectDetail {...{projectPos, projectHeight, project, isClicked}} ref={projectRefDetail} onClick={handleClick}>
-                <div style={{width: '100%', height: '100%', background: `url(${project.illustrationPath[0]}) no-repeat center`, backgroundSize: 'auto 100%', borderRadius: 8}}/>
+                <div style={{width: '100%', height: '100%', background: `url(${project.illustrationPath[0]}) no-repeat center`, backgroundSize: 'auto 100%'}}/>
             </ProjectDetail>
         </>
     );
