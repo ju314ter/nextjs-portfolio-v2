@@ -180,24 +180,23 @@
             fill: var(--contentColor);
         }
     }
-
-    &.unique {
-        border-top-right-radius: 8px;
-        border-top-left-radius: 8px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-        margin-right: auto;
-        margin-left: auto;
-    }
 }
 
 .Project-left-action {
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
     left: -2px;
+
+    &.unique {
+        margin-right: auto;
+    }
 }
 .Project-right-action {
     border-top-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    right: -2px
+    right: -2px;
+
+    &.unique {
+        margin-left: auto;
+    }
 }

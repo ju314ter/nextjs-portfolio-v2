@@ -28,7 +28,7 @@ border-bottom-width: 4px;
 border-right-width: 1px;
 border-top-width: 1px;
 
-    &:hover {
+&:hover {
     transition: all 1s ease-in-out;
     opacity: 1;
     top: 0;
@@ -48,17 +48,19 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
     
     const [isHovered, setHovered] = useState(false)
     const [isClicked, setClicked] = useState(false)
-    const overlayOpacitySpring = useSpring({opacity : isHovered ? 0 : 0.3})
+    const [colorRef, setColorRef] = useState('white')
 
     const [projectRef, projectPos] = useMeasure()
     const projectRefDetail = useRef<HTMLHeadingElement>(null)
-
-    // const [styleDetail, styleDetailApi] = useSpring(()=>({top:`${projectPos.top}px`, left: `${projectPos.left}px`, width: '360px', height: `${projectHeight}px`}))
 
     const handleClick= (e) => {
         setClicked(!isClicked)
         projectRefDetail.current.classList.toggle('active')
     }
+
+    useEffect(()=>{
+        setColorRef(color)
+    }, [])
 
     return (
         <>
@@ -67,11 +69,11 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
                 onMouseEnter={()=>{setHovered(true)}}
                 onMouseLeave={()=>{setHovered(false)}}>
                 {!!project.repoPath && !! project.directUrl && (<>
-                    <div className='Project-left-action' onClick={(e)=>{router.push(project.repoPath) && e.stopPropagation()}}><Github style={{width: '60%', height: '100%'}} /></div>
-                    <div className='Project-right-action' onClick={(e)=>{router.push(project.directUrl) && e.stopPropagation()}} ><DynamicFeedIcon style={{width: '60%', height: '100%'}} /></div></>
+                    <div className='Project-left-action' onClick={(e)=>{router.push(project.repoPath) && e.stopPropagation()}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>
+                    <div className='Project-right-action' onClick={(e)=>{router.push(project.directUrl) && e.stopPropagation()}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div></>
                 )}
-                {!!project.repoPath && !project.directUrl &&  <div className='Project-left-action unique' onClick={()=>{router.push(project.repoPath)}}><Github style={{width: '60%', height: '100%'}} /></div>}
-                {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={()=>{router.push(project.directUrl)}} ><DynamicFeedIcon style={{width: '60%', height: '100%'}} /></div>}
+                {!!project.repoPath && !project.directUrl &&  <div className='Project-left-action unique' onClick={()=>{router.push(project.repoPath)}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
+                {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={()=>{router.push(project.directUrl)}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
             </div>
             <ProjectDetail {...{projectPos, projectHeight, project, isClicked}} ref={projectRefDetail} onClick={handleClick}>
                 <div style={{width: '100%', height: '100%', background: `url(${project.illustrationPath[0]}) no-repeat center`, backgroundSize: 'auto 100%'}}/>
