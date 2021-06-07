@@ -21,6 +21,10 @@ interface IProject {
     description: string
 }
 
+const isReal = (number: number) => {
+    return isFinite(number) && !isNaN(number)
+}
+
 const GridProject = (props) => {
 
     const minColWidth = 320
@@ -44,6 +48,10 @@ const GridProject = (props) => {
             const column = heights.indexOf(Math.min(...heights)) // Basic masonry-grid placing, puts tile into the smallest column using Math.min
             const left = (boundsGrid.width / columns) * column // x = container width / number of columns * column index,
             const top = (heights[column] += projectHeight + 25) - projectHeight + 25 // y = it's just the height of the current column
+
+            // if(!isReal(columns)) console.log('columns is not real folks !' , columns)
+            // console.log(columns)
+
             return { ...child, left, top, width: boundsGrid.width / columns, height: projectHeight + 25 }
         })
         props.getHeight(heights)
@@ -52,16 +60,16 @@ const GridProject = (props) => {
 
     const transitions = useTransition(gridItems, {
         keys: (item: { projectName: string; height: number; width: number; left: number; top: number; }) => item.projectName,
-        from: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height, opacity: 0 }),
-        enter: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height, opacity: 1 }),
-        update: ({ left = 0, top, width, height = 0 }) => ({ left, top, width, height }),
+        from: ({ left, top, width, height }) => ({ left, top, width, height, opacity: 0 }),
+        enter: ({ left, top, width, height}) => ({ left, top, width, height, opacity: 1 }),
+        update: ({ left, top, width, height}) => ({ left, top, width, height }),
         leave: { height: 0, opacity: 0 },
         config: { mass: 5, tension: 500, friction: 100 },
         trail: 25
       })
 
     useEffect(() => {
-        setColumns(Math.floor(boundsGrid.width / minColWidth))
+        boundsGrid.width !== 0 ? setColumns(Math.floor(boundsGrid.width / minColWidth)):null
     }, [boundsGrid, projectHeight])
 
     const toggle = (tag: string) => {
@@ -115,17 +123,18 @@ const GridProject = (props) => {
             </div>
             <div className='ProjectsWrapper' ref={refGrid}>
                 {
-                    !isFinite(Math.max(...heights)) ? null : ( transitions((props, item) => {
+                    !isFinite(Math.max(...heights)) ? null : ( transitions((props: any, item: any) => {
                         return (
-                        <a.div
-                        key={item}
-                        className="animated-item-wrapper"
-                        style={{
-                            ...props
-                        }}>
-                            <Project project={item} projectHeight={projectHeight} color={colorArray[Math.floor(Math.random() * colorArray.length)]} onClick={()=>{handleProject(item)}}/>
-                        </a.div>
-                    )}))
+                            <a.div
+                            key={item}
+                            className="animated-item-wrapper"
+                            style={{
+                                ...props
+                            }}>
+                                <Project project={item} projectHeight={projectHeight} color={colorArray[Math.floor(Math.random() * colorArray.length)]} onClick={()=>{handleProject(item)}}/>
+                            </a.div>
+                        )
+                    }))
                 }
             </div>
         </div>

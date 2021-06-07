@@ -19,7 +19,7 @@ import GridProject from '../components/gridProjects';
 
 export default function Landing() {
 
-  const [projectsSectionHeight, setProjectsSectionHeight] = useState([])
+  const [projectsSectionHeight, setProjectsSectionHeight] = useState(0)
   const [scrollPos, setScrollPos] = useState(0)
   const containerRef = useRef(null)
 
@@ -85,8 +85,8 @@ export default function Landing() {
           <div className='MaskedBorder-frame opposite-color'></div>
         </div>
       </Section>
-      <Section name='Projects' style={{height: Math.max(...projectsSectionHeight) + 150}}>
-          <GridProject getHeight={(heights)=>setProjectsSectionHeight(heights)} />
+      <Section name='Projects' style={ isFinite(projectsSectionHeight) ? {height: projectsSectionHeight + 150} : null}>
+          <GridProject getHeight={(heights:[])=>setProjectsSectionHeight(Math.max(...heights))} />
       </Section>
       <Section name='Contact' style={{position: 'relative'}}>
         <div className='MaskedBorder'>

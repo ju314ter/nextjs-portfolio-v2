@@ -39,6 +39,7 @@
 
 
 .Tech-wheel-wrapper {
+    overflow: hidden;
     transform: scale(1.2);
     @media screen and (max-width: 1000px) {
        transform: scale(0.5);

@@ -9,16 +9,21 @@ import useMeasure from 'react-use-measure';
 const GridTag = ({isSelected, tag, onTagClick, index, color}:{isSelected?: boolean, color?: string, tag: string, onTagClick: ()=>void, index: number, key: string}) => {
     const [textRef, textBounds] = useMeasure()
     const [isHovered, setHovered] = useState(false)
+    const colorRef = useRef(color)
 
     const textStyleRemove = useSpring({maxWidth: isSelected ? 500 : 0, opacity: isSelected ? 1 : 0})
     const textStyleAdd = useSpring({maxWidth: isHovered ? 500 : 0, opacity: isHovered ? 1 : 0})
 
-    const [bgStyle, setBgStyle] = useSpring(() => ({ width: 0, background: color }))
+    const bgStyle = useSpring({ width: isSelected || isHovered ? textBounds.width + 10 : 0, background: colorRef.current })
+
+    useEffect(()=>{
+        colorRef.current = color
+    }, [])
     
     return (
         <div className='Filter-tag-wrapper' onClick={onTagClick}
-        onMouseEnter={()=>{setBgStyle.start({width: textBounds.width + 10}) && setHovered(true)}}
-        onMouseLeave={()=>{setBgStyle.start({width: 0}) && setHovered(false)}} >
+        onMouseEnter={()=>{setHovered(true)}}
+        onMouseLeave={()=>{setHovered(false)}} >
             <span className='Filter-tag-content' style={tag=='Randomize' ? {fontWeight:'bold'}: null} ref={textRef}>{tag}</span>
             {tag!=='Randomize' && isHovered && !isSelected ? (<a.span style={textStyleAdd} className='Filter-tag-button-remove'><AddCircleIcon/></a.span>) : null}
             {tag!=='Randomize' && isSelected ? (<a.span style={textStyleRemove} className='Filter-tag-button-remove'><RemoveCircleIcon/></a.span>) : null}
