@@ -25,6 +25,19 @@ export default function Landing() {
 
   useEffect(()=>{
     window.addEventListener('scroll', (e: any)=>{setScrollPos(window.scrollY)})
+
+    const observedSection = document.querySelector('.SectionContact')
+
+    const options = {}
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry)=>{
+          console.log(entry)
+        })
+      }, options)
+
+    observer.observe(observedSection)
+
     return  window.removeEventListener('scroll', ()=>{console.log('scroll listener removed')})
   }, [])
 
@@ -89,6 +102,9 @@ export default function Landing() {
           <GridProject getHeight={(heights:[])=>setProjectsSectionHeight(Math.max(...heights))} />
       </Section>
       <Section name='Contact' style={{position: 'relative'}}>
+        <div className="ContactMain" style={{width: '100%', height: '100%', display: 'flex',  justifyContent: 'center', alignItems: 'center'}}>
+          <h1 style={{color: 'white'}}>More about me</h1>
+        </div>
         <div className='MaskedBorder'>
           <div className='MaskedBorder-frame opposite-color'></div>
         </div>

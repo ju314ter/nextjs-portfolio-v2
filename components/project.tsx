@@ -12,10 +12,10 @@ import styled, { keyframes } from 'styled-components';
 const ProjectDetail = styled.div`
 top:${props => props.projectPos.top}px;
 left: ${props => props.projectPos.left}px;
-width: 360px;
+width: 300px;
 height: ${props => props.projectHeight}px;
 display: ${props => props.isClicked ? `block`: `none`};
-background: red no-repeat center;
+background: whitesmoke no-repeat center;
 backgroundSize: contain;
 position: fixed;
 margin-top: 0;
@@ -31,11 +31,11 @@ border-top-width: 1px;
 &:hover {
     transition: all 1s ease-in-out;
     opacity: 1;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    border-radius:0;
+    top: 5vh;
+    left: 5vw;
+    width: 90vw;
+    height: 90vh;
+    border-radius:8px;
     }
 `
 
@@ -76,7 +76,7 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
                 {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={()=>{router.push(project.directUrl)}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
             </div>
             <ProjectDetail {...{projectPos, projectHeight, project, isClicked}} ref={projectRefDetail} onClick={handleClick}>
-                <div style={{width: '100%', height: '100%', background: `url(${project.illustrationPath[0]}) no-repeat center`, backgroundSize: 'auto 100%'}}/>
+                <div style={{width: '100%', height: '100%', borderRadius: 8, border: '2px solid black', background: `url(${project.illustrationPath[0]}) no-repeat center`, backgroundSize: 'auto 100%'}}/>
             </ProjectDetail>
         </>
     );

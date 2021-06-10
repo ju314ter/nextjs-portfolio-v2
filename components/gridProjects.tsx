@@ -31,7 +31,7 @@ const GridProject = (props) => {
     const [refGrid, boundsGrid] = useMeasure()
     const [projectHeight, setProjectHeight] = useState(280)
     const [columns, setColumns] = useState(2)
-    const formattedData: Array<any> = shuffle(data.realisations)
+    const formattedData: Array<any> = data.realisations
     const [items, set] = useState(formattedData)
     let tagsArray = ["Randomize"];
     data.realisations.forEach((real)=>{
@@ -67,6 +67,11 @@ const GridProject = (props) => {
         config: { mass: 5, tension: 500, friction: 100 },
         trail: 25
       })
+
+    
+    useEffect(()=>{
+        set(shuffle(formattedData))
+    },[])
 
     useEffect(() => {
         boundsGrid.width !== 0 ? setColumns(Math.floor(boundsGrid.width / minColWidth)):null
