@@ -14,9 +14,14 @@ import Typescript from '../public/typescript.svg';
 
 import data from '../data/realisations.json';
 import GridProject from '../components/gridProjects';
-import FleeingBorderAnimation from '../components/fleeingborderAnimation';
+import FleeingBorderAnimation from '../components/fleeingBorderAnimation';
+
+import FollowMousePanel from '../components/followMousePanel'
+import { useRouter } from 'next/router'
 
 export default function Landing() {
+  
+  const router = useRouter();
 
   const [projectsSectionHeight, setProjectsSectionHeight] = useState(0)
   const [scrollPos, setScrollPos] = useState(0)
@@ -31,7 +36,7 @@ export default function Landing() {
 
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach((entry)=>{
-          console.log(entry)
+          // console.log(entry)
         })
       }, options)
 
@@ -97,13 +102,13 @@ export default function Landing() {
       </Section>
       <Section name='Contact' style={{position: 'relative'}}>
         <div className="ContactMain">
-          <div className="ContactMain-Disclaimer">
-              <p>Hello, I'm a french JS developper with a strong incentive to design, code and create stuff. Not only am I passionate about new tech, but also favor all kinds of arts and am well versed with socials problematics.</p>
-          </div>
+          <FollowMousePanel>
+            <p>Hello, I'm a french JS developper with a strong incentive to design, code and create stuff. Not only am I passionate about new tech, but also favor all kinds of arts and am well versed with socials problematics.</p>
+          </FollowMousePanel>
           <div className="ContactMain-ContactLink ">
-              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em'}}>LinkedIn</div></FleeingBorderAnimation>
-              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em'}}>GitHub</div></FleeingBorderAnimation>
-              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em'}}>StackOverflow</div></FleeingBorderAnimation>
+              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em', cursor: 'pointer'}} onClick={()=>{router.push ('https://linkedin.com')}}>LinkedIn</div></FleeingBorderAnimation>
+              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em', cursor: 'pointer'}} onClick={()=>{router.push ('https://github.com')}}>GitHub</div></FleeingBorderAnimation>
+              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em', cursor: 'pointer'}} onClick={()=>{router.push ('https://stackoverflow.com')}}>StackOverflow</div></FleeingBorderAnimation>
           </div>
         </div>
         <div className='MaskedBorder'>
