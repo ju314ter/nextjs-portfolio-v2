@@ -7,8 +7,11 @@ import { useGesture } from 'react-use-gesture'
 const FollowMousePanel = (props:any):React.ReactNode => {
 
     const domTarget = useRef(null)
-    const calcX = (y: number, ly: number) => -(y - ly - window.innerHeight / 2) / 30
-    const calcY = (x: number, lx: number) => (x - lx - window.innerWidth / 4) / 30
+    const widthOfPannel = useRef(0)
+    const calcX = (y: number, ly: number) => -(y - ly - window.innerHeight / 2) / 40
+    const calcY = (x: number, lx: number) => {
+        return (x - lx - 600 / 2) / 40
+    }
   
     const [{rotateX, rotateY, rotateZ, x, y}, api] = useSpring(
       () => ({
