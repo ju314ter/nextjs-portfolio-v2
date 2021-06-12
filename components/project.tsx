@@ -10,7 +10,7 @@ import useMeasure from 'react-use-measure';
 import styled, { keyframes } from 'styled-components';
 
 const ProjectDetail = styled.div`
-top:${props => props.projectPos.top}px;
+top: ${props => props.projectPos.top}px;
 left: ${props => props.projectPos.left}px;
 width: 300px;
 height: ${props => props.projectHeight}px;

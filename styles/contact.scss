@@ -5,10 +5,36 @@
     width: 100vw;
     min-height: 100vh;
     background: var(--backgroundColor);
+    color: var(--contentColor);
   }
 
 .ContactMain {
-    grid-column-start: 2;
-    width: 100%;
-    height: 100%;
+  grid-column-start: 2;
+  width: 100%;
+  height: 100%;
+  display:flex;
+  justify-content: 'center';
+  align-items: 'center';
+  flex-wrap: wrap;
+  font-size: 3em;
+}
+
+.ContactMain-Disclaimer {
+  font-family: Jost;
+  font-style: italic;
+  flex: 0 0 50%;
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ContactMain-ContactLink {
+  font-family: Rokkit;
+  flex-direction: column;
+  flex: 0 0 50%;
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
