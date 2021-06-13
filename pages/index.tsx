@@ -30,13 +30,25 @@ export default function Landing() {
   useEffect(()=>{
     window.addEventListener('scroll', (e: any)=>{setScrollPos(window.scrollY)})
 
-    const observedSection = document.querySelector('.SectionContact')
+    const observedSection = document.querySelector('.Tech-text')
 
-    const options = {}
+    const options = {
+      root: null,
+      treshold: 1,
+      rootMargin: '0px'
+    }
 
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach((entry)=>{
-          // console.log(entry)
+          const leftText = document.querySelector('.Tech-text_left')
+          const rightText = document.querySelector('.Tech-text_right')
+          if(entry.isIntersecting) {
+            leftText.classList.add('tilt-in-fwd-bl')
+            rightText.classList.add('tilt-in-fwd-br')
+          } else {
+            leftText.classList.remove('tilt-in-fwd-bl')
+            rightText.classList.remove('tilt-in-fwd-br')
+          }
         })
       }, options)
 
@@ -62,7 +74,7 @@ export default function Landing() {
       <Section name='Tech'>
         <div style={{position: 'relative', top: `0px`}}>
           <div className='Tech-text-wrapper'>
-            <em className='Tech-text'>Creativity<span className="special-colorizing">X</span>Technique</em>
+            <em className='Tech-text'><span className='Tech-text_left'>Creativity</span><span className="special-colorizing">X</span><span className='Tech-text_right'>Technique</span></em>
           </div>
           <div className='Tech-wheel-wrapper'>
             <div className="Tech-wheel">
