@@ -15,7 +15,6 @@ import Typescript from '../public/typescript.svg';
 import data from '../data/realisations.json';
 import GridProject from '../components/gridProjects';
 import FleeingBorderAnimation from '../components/fleeingBorderAnimation';
-import DarkeningOverlay from '../components/darkeningOverlay'
 
 import FollowMousePanel from '../components/followMousePanel'
 import { useRouter } from 'next/router'
@@ -24,8 +23,6 @@ export default function Landing() {
   
   const router = useRouter();
 
-  
-  const [ isDarkOverlayVisible, setDarkOverlayVisibility ] = useState(false)
   const [projectsSectionHeight, setProjectsSectionHeight] = useState(0)
   const [scrollPos, setScrollPos] = useState(0)
   const containerRef = useRef(null)
@@ -113,8 +110,7 @@ export default function Landing() {
         </div>
       </Section>
       <Section name='Projects' style={ isFinite(projectsSectionHeight) ? {height: projectsSectionHeight + 150} : null}>
-          <GridProject getHeight={(heights:[])=>setProjectsSectionHeight(Math.max(...heights))} onProjectToggle={(bool)=>setDarkOverlayVisibility(bool)} />
-          <DarkeningOverlay zIndex={100} name={'projectOverlay'} show={isDarkOverlayVisible}/>
+          <GridProject getHeight={(heights:[])=>setProjectsSectionHeight(Math.max(...heights))} onProjectToggle={(clicked)=>{}} />
       </Section>
       <Section name='Contact' style={{position: 'relative'}}>
         <div className="ContactMain">

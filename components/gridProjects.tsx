@@ -64,7 +64,6 @@ const GridProject = (props) => {
         trail: 25
       })
 
-    
     useEffect(()=>{
         set(shuffle(formattedData))
     },[])
@@ -103,9 +102,9 @@ const GridProject = (props) => {
         }
     }
 
-    const handleProjectClick = (click) => {
-        // properties.selectedProject(project)
-        props.onProjectToggle(click)
+    const handleProjectClick = (clicked) => {
+        // props.selectedProject(project)
+        props.onProjectToggle(clicked)
     }
 
     return (

@@ -25,8 +25,9 @@ const Overlay = styled(a.div)`
 position: fixed;
 width: 100vw;
 top: 0;
+left: 0;
 height: 100vh;
-background: black;
+background: #222;
 animation: 0.3s ${props => props.show ? fadeIn : fadeOut} ease-out forwards;
 z-index: ${props => props.zIndex}
 `
