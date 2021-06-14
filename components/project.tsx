@@ -7,7 +7,7 @@ import Github from '../public/socialicons/github.svg';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 
 import useMeasure from 'react-use-measure';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 const ProjectDetail = styled.div`
 top: ${props => props.projectPos.top}px;
@@ -40,7 +40,7 @@ border-top-width: 1px;
 `
 
 
-const Project = ({onClick, color, project, projectHeight}:{color?: string, onClick: ()=>void, project: any, projectHeight: number}) => {
+const Project = ({onClick, color, project, projectHeight}:{color?: string, onClick: (cliked)=>void, project: any, projectHeight: number}) => {
     
     if (!project) { return null}
 
@@ -54,8 +54,9 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
     const projectRefDetail = useRef<HTMLHeadingElement>(null)
 
     const handleClick= (e) => {
+        isClicked ? onClick(false): onClick(true)
         setClicked(!isClicked)
-        projectRefDetail.current.classList.toggle('active')
+        projectRefDetail.current.focus()
     }
 
     useEffect(()=>{

@@ -48,10 +48,6 @@ const GridProject = (props) => {
             const column = heights.indexOf(Math.min(...heights)) // Basic masonry-grid placing, puts tile into the smallest column using Math.min
             const left = (boundsGrid.width / columns) * column // x = container width / number of columns * column index,
             const top = (heights[column] += projectHeight + 25) - projectHeight + 25 // y = it's just the height of the current column
-
-            // if(!isReal(columns)) console.log('columns is not real folks !' , columns)
-            // console.log(columns)
-
             return { ...child, left, top, width: boundsGrid.width / columns, height: projectHeight + 25 }
         })
         props.getHeight(heights)
@@ -107,9 +103,9 @@ const GridProject = (props) => {
         }
     }
 
-    const handleProject = (project) => {
+    const handleProjectClick = (click) => {
         // properties.selectedProject(project)
-        console.log(project)
+        props.onProjectToggle(click)
     }
 
     return (
@@ -136,7 +132,7 @@ const GridProject = (props) => {
                             style={{
                                 ...props
                             }}>
-                                <Project project={item} projectHeight={projectHeight} color={colorArray[Math.floor(Math.random() * colorArray.length)]} onClick={()=>{handleProject(item)}}/>
+                                <Project project={item} projectHeight={projectHeight} color={colorArray[Math.floor(Math.random() * colorArray.length)]} onClick={(click)=>handleProjectClick(click)}/>
                             </a.div>
                         )
                     }))
