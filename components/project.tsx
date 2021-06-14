@@ -10,12 +10,12 @@ import DarkeningOverlay from '../components/darkeningOverlay'
 import useMeasure from 'react-use-measure';
 import styled, {keyframes} from 'styled-components';
 
-const moveIn = keyframes`
+const moveIn = (displayBullets) => keyframes`
   100% {
     top: 5vh;
     left: 5vw;
     width: 90vw;
-    height: 90vh;
+    height: ${displayBullets? `70vh`:`90vh`};
   }
 `
 
@@ -54,7 +54,7 @@ border-left-width: 4px;
 border-bottom-width: 4px;
 border-right-width: 1px;
 border-top-width: 1px;
-animation: 0.3s ${props => props.isClicked ? moveIn : moveOut(props.projectPos.top,props.projectPos.left,props.projectHeight)} ${props => props.isClicked ? `ease-in` : `ease-out`} forwards;
+animation: 0.3s ${props => props.isClicked ? moveIn(props.illustrationsNodes.length > 1) : moveOut(props.projectPos.top,props.projectPos.left,props.projectHeight)} ${props => props.isClicked ? `ease-in` : `ease-out`} forwards;
 `
 
 const BulletWrapper = styled(a.div)`
@@ -139,8 +139,8 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
             </div>
             {shouldRender && 
             <>
-                <ProjectDetail {...{projectPos, projectHeight, project, isClicked, shouldRender}} ref={projectRefDetail} onAnimationEnd={onAnimationEnd}>
-                    <div style={{flex: illustrationsNodes.length > 1 ? '0 0 70%' : '0 0 100%', position: 'relative', overflow: 'hidden'}} onClick={(e)=>(onImageClick(e))}>
+                <ProjectDetail {...{projectPos, projectHeight, project, isClicked, shouldRender, illustrationsNodes}} ref={projectRefDetail} onAnimationEnd={onAnimationEnd}>
+                    <div style={{flex: '0 0 100%', position: 'relative', overflow: 'hidden'}} onClick={(e)=>(onImageClick(e))}>
                             {illustrationsNodes.length > 1 ?
                             transitions((values, item, transition, index) => {
                                 return <a.div key={index} className="ProjectDetail-imgWrapper" style={{...values}}><img src={illustrationsNodes[item]}/></a.div>
