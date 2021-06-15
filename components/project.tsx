@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useRouter } from 'next/router'
-import { animated as a, useTransition } from "react-spring";
-import Button from '@material-ui/core/Button';
-import CancelIcon from '@material-ui/icons/Cancel';
+import { animated as a, useTransition, useSpringRef } from "react-spring";
 import Github from '../public/socialicons/github.svg';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
-import DarkeningOverlay from '../components/darkeningOverlay'
+import DarkeningOverlay from '../components/darkeningOverlay';
+import CloseIcon from '@material-ui/icons/Close';
 
 import useMeasure from 'react-use-measure';
 import styled, {keyframes} from 'styled-components';
@@ -31,6 +30,18 @@ const moveOut = (top, left, height) => keyframes`
     left: ${left}px;
     width: 300px;
     height: ${height}px;
+  }
+`
+
+const rotateAndScaleInOut = () => keyframes`
+  0% {
+    transform: rotateZ(0deg) scale(1);
+  }
+  50% {
+    transform: rotateZ(180deg) scale(0.7);
+  }
+  100% {
+    transform: rotateZ(180deg) scale(1);
   }
 `
 
@@ -64,6 +75,24 @@ const BulletWrapper = styled(a.div)`
     align-items: center;
 `
 
+const CloseWrapper = styled(a.div)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 500;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 5vw;
+    height: 5vw;
+    color: whitesmoke;
+    cursor: pointer;
+    
+    &:hover {
+        animation: 0.3s ${rotateAndScaleInOut} ease-in-out alternate;
+    }
+`
+
 
 const Project = ({onClick, color, project, projectHeight}:{color?: string, onClick: (cliked)=>void, project: any, projectHeight: number}) => {
     
@@ -93,19 +122,30 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
 
     const onImageClick = useCallback((e) => {
         e.stopPropagation();
-        isFirstImageLoop === false ? (setClicked(false),set(0)):
+        isFirstImageLoop === false ? (setClicked(false),set(0),setIsFirstImageLoop(true)):
         set(state => (state + 1) % illustrationsNodes.length)
     }, [isFirstImageLoop])
 
+    // const transitions = useTransition(index, {
+    //     keys: p => p, 
+    //     from: { opacity: 0, transform: 'translate3d(50%,0,0)' },
+    //     enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+    //     leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
+
+    // })
+
+    const transRef = useSpringRef()
     const transitions = useTransition(index, {
-        keys: p => p, 
+        ref: transRef,
+        keys: null,
         from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
         enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
         leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
         config: { mass: 5, tension: 500, friction: 100 },
-    })
+      })
 
     useEffect(()=>{
+        transRef.start()
         illustrationsNodes.length - 1 === index ? setIsFirstImageLoop(false) : null
     },[index])
 
@@ -154,6 +194,9 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
                     </BulletWrapper>
                 </ProjectDetail>
                 <DarkeningOverlay zIndex={100} name={'projectOverlay'} show={isClicked}/>
+                <CloseWrapper onClick={()=>setClicked(false)}>
+                    <CloseIcon style={{width: '80%', height: '80%'}}/>
+                </CloseWrapper>
             </>
             }
         </>

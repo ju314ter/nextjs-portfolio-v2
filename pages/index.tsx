@@ -121,6 +121,8 @@ export default function Landing() {
               <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em', cursor: 'pointer'}} onClick={()=>{router.push ('https://linkedin.com')}}>LinkedIn</div></FleeingBorderAnimation>
               <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em', cursor: 'pointer'}} onClick={()=>{router.push ('https://github.com')}}>GitHub</div></FleeingBorderAnimation>
               <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em', cursor: 'pointer'}} onClick={()=>{router.push ('https://stackoverflow.com')}}>StackOverflow</div></FleeingBorderAnimation>
+              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em', cursor: 'pointer'}} onClick={()=>{router.push ('https://pdfhost.io/v/~wRGPaU~E_CV_JF_long_versionpdf.pdf')}}>Curriculum</div></FleeingBorderAnimation>
+              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.5em', cursor: 'pointer'}} onClick={()=>{router.push ('https://pdfhost.io/v/eO~YOVOYH_Missions_Julien_Fger.pdf')}}>Détail Missions</div></FleeingBorderAnimation>
           </div>
         </div>
         <div className='MaskedBorder'>
