@@ -201,22 +201,6 @@
     }
 }
 
-.ProjectDetail-imgWrapper {
-    cursor: pointer;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    max-width: 90vw;
-    
-    & img {
-        border-radius: 8px;
-        border: 2px solid var(--contentColor);
-        max-height: 100%;
-    }
-}
-
 .ProjectDetail-nav-bullet {
     width: 16px;
     height: 16px;

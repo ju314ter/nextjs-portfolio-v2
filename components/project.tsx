@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useRouter } from 'next/router'
-import { animated as a, useTransition, useSpringRef } from "react-spring";
+import { animated as a, useSprings } from "react-spring";
+import { useDrag } from 'react-use-gesture'
+import clamp from 'lodash'
+
 import Github from '../public/socialicons/github.svg';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import DarkeningOverlay from '../components/darkeningOverlay';
@@ -11,7 +14,7 @@ import styled, {keyframes} from 'styled-components';
 
 const moveIn = (displayBullets) => keyframes`
   100% {
-    top: 5vh;
+    top: 7vh;
     left: 5vw;
     width: 90vw;
     height: ${displayBullets? `70vh`:`90vh`};
@@ -65,12 +68,32 @@ border-left-width: 4px;
 border-bottom-width: 4px;
 border-right-width: 1px;
 border-top-width: 1px;
-animation: 0.3s ${props => props.isClicked ? moveIn(props.illustrationsNodes.length > 1) : moveOut(props.projectPos.top,props.projectPos.left,props.projectHeight)} ${props => props.isClicked ? `ease-in` : `ease-out`} forwards;
+animation: 0.3s ${props => props.isClicked ? moveIn(props.pagesArray.length > 1) : moveOut(props.projectPos.top,props.projectPos.left,props.projectHeight)} ${props => props.isClicked ? `ease-in` : `ease-out`} forwards;
+`
+
+const ContentWrapper = styled(a.div)`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+
+    & div {
+        touch-action: none;
+        cursor: move;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 100%;
+        height: 100%;
+        will-change: transform;
+    }
 `
 
 const BulletWrapper = styled(a.div)`
+    position: absolute;
+    bottom: -100px;
+    width: 100%;
     display: flex;
-    flex: 0 0 30%;
     justify-content: center;
     align-items: center;
 `
@@ -93,6 +116,13 @@ const CloseWrapper = styled(a.div)`
     }
 `
 
+const getPages = nbPage => {
+    let promiseArray = []
+    for (let i = 0; i < nbPage; i++) {
+      promiseArray.push(fetch('https://picsum.photos/1200', { method: 'GET' }))
+    }
+    return promiseArray
+  }
 
 const Project = ({onClick, color, project, projectHeight}:{color?: string, onClick: (cliked)=>void, project: any, projectHeight: number}) => {
     
@@ -104,50 +134,71 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
     const [shouldRender, setRender] = useState(isClicked);
     const [colorRef, setColorRef] = useState('white')
 
-    const [isFirstImageLoop, setIsFirstImageLoop] = useState(true)
-    const [index, set] = useState(0)
-
     const [projectRef, projectPos] = useMeasure()
-    const projectRefDetail = useRef<HTMLHeadingElement>(null)
+    const [projectDetailRef, { width }] = useMeasure()
 
-    const [illustrationsNodes, setIllustrationsNodes] = useState(() => {
-        let pagesArray = [];
-        if(project.illustrationPath) {
-            for (var i = 0, len = project.illustrationPath.length; i < len; i++) {
-                pagesArray.push(project.illustrationPath[i].toString())
-            }
+    const [index, setIndex] = useState(0)
+    // let index = useRef(0)
+    const [pagesArray, setPagesArray] = useState([])
+    const [springProps, springsApi] = useSprings(
+      pagesArray.length,
+      i => ({
+        x: i * width,
+        scale: width === 0 ? 0 : 1,
+        display: 'block',
+      }),
+      [width]
+    )
+
+    const [props, api] = useSprings(
+        pagesArray.length,
+        i => ({
+          x: i * width,
+          scale: width === 0 ? 0 : 1,
+          display: 'block',
+        }),
+        [width]
+      )
+
+      useEffect(() => {
+        setPagesArray(project.illustrationPath)
+        // let responseArray = []
+        // Promise.all(getPages(5))
+        //   .then(values => values.map(value => responseArray.push(value.url)))
+        //   .then(() => setPagesArray(responseArray))
+      }, [])
+    
+      const bind = useDrag(({ active, movement: [mx], direction: [xDir], distance, cancel }) => {
+
+        if(active &&  distance > width / 3 && xDir > 0 && index === 0) {
+            console.log('no moar frame on the right')
+            cancel()
         }
-        return pagesArray
-    })
+        if(active &&  distance > width / 3 && xDir < 0 && index === pagesArray.length - 1) {
+            console.log('no moar frame on the left')
+            cancel()
+        }
 
-    const onImageClick = useCallback((e) => {
-        e.stopPropagation();
-        isFirstImageLoop === false ? (setClicked(false),set(0),setIsFirstImageLoop(true)):
-        set(state => (state + 1) % illustrationsNodes.length)
-    }, [isFirstImageLoop])
+        if (active && distance > width / 2) {
+            setIndex(+clamp(index + (xDir > 0 ? -1 : 1), 0, pagesArray.length - 1))
+            cancel()
+        }
 
-    // const transitions = useTransition(index, {
-    //     keys: p => p, 
-    //     from: { opacity: 0, transform: 'translate3d(50%,0,0)' },
-    //     enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-    //     leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
-
-    // })
-
-    const transRef = useSpringRef()
-    const transitions = useTransition(index, {
-        ref: transRef,
-        keys: null,
-        from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
-        enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-        leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
-        config: { mass: 5, tension: 500, friction: 100 },
+        api.start(i => {
+          const x = (i - index) * width + (active ? mx : 0)
+          const scale = active ? 1 - distance / width / 2 : 1
+          return { x, scale, display: i < index - 1 || i > index + 1 ? 'none' : 'block' }
+        })
       })
-
-    useEffect(()=>{
-        transRef.start()
-        illustrationsNodes.length - 1 === index ? setIsFirstImageLoop(false) : null
-    },[index])
+    
+      const handleClick = reqIndex => {
+        setIndex(reqIndex)
+        api.start(i => {
+          const x = (i - reqIndex) * width
+          const scale = 1
+          return { x, scale, display: i < index - 1 || i > index + 1 ? 'none' : 'block' }
+        })
+      }
 
     useEffect(() => {
         if (isClicked) setRender(true);
@@ -179,17 +230,19 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
             </div>
             {shouldRender && 
             <>
-                <ProjectDetail {...{projectPos, projectHeight, project, isClicked, shouldRender, illustrationsNodes}} ref={projectRefDetail} onAnimationEnd={onAnimationEnd}>
-                    <div style={{flex: '0 0 100%', position: 'relative', overflow: 'hidden'}} onClick={(e)=>(onImageClick(e))}>
-                            {illustrationsNodes.length > 1 ?
-                            transitions((values, item, transition, index) => {
-                                return <a.div key={index} className="ProjectDetail-imgWrapper" style={{...values}}><img src={illustrationsNodes[item]}/></a.div>
-                            }) 
-                            : <a.div className="ProjectDetail-imgWrapper" onClick={()=>setClicked(false)}><img src={illustrationsNodes[0]} /></a.div>}
-                    </div>
+                <ProjectDetail {...{projectPos, projectHeight, project, isClicked, shouldRender, pagesArray}}  ref={projectDetailRef} onAnimationEnd={onAnimationEnd}>
+                    {pagesArray.length > 1 ? props.map(({ x, display, scale }, i) => (
+                        <ContentWrapper {...bind()} key={i} style={{ display, x }}>
+                            <a.div style={{ scale, backgroundImage: `url(${pagesArray[i]})` }} />
+                        </ContentWrapper>
+                    )): (
+                        <ContentWrapper>
+                            <a.div onClick={()=>setClicked(false)} style={{cursor: 'pointer', backgroundImage: `url(${pagesArray[0]})` }} />
+                        </ContentWrapper>
+                    )}
                     <BulletWrapper>
-                        {illustrationsNodes.length > 1 && illustrationsNodes.map((el, i)=>(
-                            <span key={'navbulletsproject' +i} onClick={(e) => { e.stopPropagation(); return set(i)}} className={index === i ? 'ProjectDetail-nav-bullet selected': 'ProjectDetail-nav-bullet'}/>
+                        {pagesArray.length > 1 && pagesArray.map((el, i)=>(
+                            <span key={'navbulletsproject' +i} onClick={(e) => { e.stopPropagation(); handleClick(i)}} className={index === i ? 'ProjectDetail-nav-bullet selected': 'ProjectDetail-nav-bullet'}/>
                         ))}
                     </BulletWrapper>
                 </ProjectDetail>
