@@ -170,11 +170,11 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
     
       const bind = useDrag(({ active, movement: [mx], direction: [xDir], distance, cancel }) => {
 
-        if(active &&  distance > width / 3 && xDir > 0 && index === 0) {
+        if(active &&  distance > width / 3.5 && xDir > 0 && index === 0) {
             console.log('no moar frame on the right')
             cancel()
         }
-        if(active &&  distance > width / 3 && xDir < 0 && index === pagesArray.length - 1) {
+        if(active &&  distance > width / 3.5 && xDir < 0 && index === pagesArray.length - 1) {
             console.log('no moar frame on the left')
             cancel()
         }
