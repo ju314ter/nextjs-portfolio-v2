@@ -117,13 +117,13 @@ export default function Landing() {
           <FollowMousePanel>
             <p>Hello, I'm a french JS developper with a strong incentive to design, code and create stuff. Not only am I passionate about new tech, but also favor all kinds of arts and am well versed with socials problematics.</p>
           </FollowMousePanel>
-          <div className="ContactMain-ContactLink">
-              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.2em', cursor: 'pointer'}} onClick={()=>{router.push ('https://www.linkedin.com/in/julienfeger')}}>LinkedIn</div></FleeingBorderAnimation>
-              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.2em', cursor: 'pointer'}} onClick={()=>{router.push ('https://github.com/ju314ter')}}>GitHub</div></FleeingBorderAnimation>
-              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.2em', cursor: 'pointer'}} onClick={()=>{router.push ('https://stackoverflow.com/users/10574010/julien-feger')}}>StackOverflow</div></FleeingBorderAnimation>
-              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.2em', cursor: 'pointer'}} onClick={()=>{router.push ('https://codesandbox.io/u/ju314ter')}}>CodeSandbox</div></FleeingBorderAnimation>
-              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.2em', cursor: 'pointer'}} onClick={()=>{router.push ('https://pdfhost.io/v/~wRGPaU~E_CV_JF_long_versionpdf.pdf')}}>Curriculum</div></FleeingBorderAnimation>
-              <FleeingBorderAnimation><div style={{fontFamily: 'Rokkitt', fontSize: '1.2em', cursor: 'pointer'}} onClick={()=>{router.push ('https://pdfhost.io/v/eO~YOVOYH_Missions_Julien_Fger.pdf')}}>Détail Missions</div></FleeingBorderAnimation>
+          <div className="ContactMain-ContactLinks">
+              <FleeingBorderAnimation><div className={'ContactMain-ContactLink'} onClick={()=>{router.push ('https://www.linkedin.com/in/julienfeger')}}>LinkedIn</div></FleeingBorderAnimation>
+              <FleeingBorderAnimation><div className={'ContactMain-ContactLink'} onClick={()=>{router.push ('https://github.com/ju314ter')}}>GitHub</div></FleeingBorderAnimation>
+              <FleeingBorderAnimation><div className={'ContactMain-ContactLink'} onClick={()=>{router.push ('https://stackoverflow.com/users/10574010/julien-feger')}}>StackOverflow</div></FleeingBorderAnimation>
+              <FleeingBorderAnimation><div className={'ContactMain-ContactLink'} onClick={()=>{router.push ('https://codesandbox.io/u/ju314ter')}}>CodeSandbox</div></FleeingBorderAnimation>
+              <FleeingBorderAnimation><div className={'ContactMain-ContactLink'} onClick={()=>{router.push ('https://pdfhost.io/v/~wRGPaU~E_CV_JF_long_versionpdf.pdf')}}>Curriculum</div></FleeingBorderAnimation>
+              <FleeingBorderAnimation><div className={'ContactMain-ContactLink'} onClick={()=>{router.push ('https://pdfhost.io/v/xkW94GWup_Detail_technique_missions_Julien_Fger.pdf')}}>Détail Missions</div></FleeingBorderAnimation>
           </div>
         </div>
         <div className='MaskedBorder'>

@@ -179,7 +179,7 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
             cancel()
         }
 
-        if (active && distance > width / 2) {
+        if (active && distance > width / 3) {
             setIndex(+clamp(index + (xDir > 0 ? -1 : 1), 0, pagesArray.length - 1))
             cancel()
         }
