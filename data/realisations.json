@@ -21,8 +21,8 @@
         },
         {
             "projectName": "Portfolio",
-            "projectSlug": "portfolio-v-2",
-            "directUrl": "https://julienfeger.com",
+            "projectSlug": "portfolio-v-1",
+            "directUrl": "https://next-portfolio-woad-two.vercel.app/",
             "repoPath": "https://github.com/ju314ter/next-portofolio",
             "illustrationPath": [
                 "/projets/JFWP.JPG",
