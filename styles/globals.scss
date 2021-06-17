@@ -16,6 +16,7 @@ body {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
   scrollbar-width: thin;
+  overflow-x: hidden;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
   padding: 0;
   margin: 0;
