@@ -8,11 +8,18 @@ import Github from '../public/socialicons/github.svg';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import DarkeningOverlay from '../components/darkeningOverlay';
 import CloseIcon from '@material-ui/icons/Close';
+import GridTag from '../components/tag'
 
 import useMeasure from 'react-use-measure';
 import styled, {keyframes} from 'styled-components';
 
-const moveIn = (displayBullets) => keyframes`
+const moveIn = (displayBullets,top, left, height) => keyframes`
+  0% {
+    top: ${top}px;
+    left: ${left}px;
+    width: 300px;
+    height: ${height}px;
+  }
   100% {
     top: 7vh;
     left: 5vw;
@@ -68,7 +75,31 @@ border-left-width: 4px;
 border-bottom-width: 4px;
 border-right-width: 1px;
 border-top-width: 1px;
-animation: 0.3s ${props => props.isClicked ? moveIn(props.pagesArray.length > 1) : moveOut(props.projectPos.top,props.projectPos.left,props.projectHeight)} ${props => props.isClicked ? `ease-in` : `ease-out`} forwards;
+animation: 0.3s ${props => props.isClicked ? moveIn(props.pagesArray.length > 1,props.projectPos.top,props.projectPos.left,props.projectHeight) : moveOut(props.projectPos.top,props.projectPos.left,props.projectHeight)} ${props => props.isClicked ? `ease-in` : `ease-out`} forwards;
+`
+
+const TagsWrapper = styled(a.div)`
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    height: 5vh;
+    background: transparent;
+    margin-right: 5vw;
+    margin-left: 5vw;
+    border-radius: 8px;
+    
+    & div {
+      padding-top: 10px;
+      font-size: 2vw;
+      color: whitesmoke;
+      margin: 1em;
+      font-family: 'Jost', 'sans-serif';
+    }
 `
 
 const ContentWrapper = styled(a.div)`
@@ -80,7 +111,6 @@ const ContentWrapper = styled(a.div)`
     & div {
         touch-action: none;
         cursor: move;
-        background-size: contain;
         background-repeat: no-repeat;
         background-position: center center;
         width: 100%;
@@ -90,28 +120,29 @@ const ContentWrapper = styled(a.div)`
 `
 
 const BulletWrapper = styled(a.div)`
-    position: absolute;
-    bottom: -100px;
+    position: fixed;
+    bottom: 150px;
+    left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 `
 
 const CloseWrapper = styled(a.div)`
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 500;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 5vw;
+    left: 0;
+    width: 100vw;
     height: 5vw;
     color: whitesmoke;
     cursor: pointer;
     
-    &:hover {
+    & svg:hover {
         animation: 0.3s ${rotateAndScaleInOut} ease-in-out alternate;
     }
 `
@@ -150,7 +181,7 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
       [width]
     )
 
-    const [props, api] = useSprings(
+    const [propsSprings, apiSprings] = useSprings(
         pagesArray.length,
         i => ({
           x: i * width,
@@ -184,7 +215,7 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
             cancel()
         }
 
-        api.start(i => {
+        apiSprings.start(i => {
           const x = (i - index) * width + (active ? mx : 0)
           const scale = active ? 1 - distance / width / 2 : 1
           return { x, scale, display: i < index - 1 || i > index + 1 ? 'none' : 'block' }
@@ -193,7 +224,7 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
     
       const handleClick = reqIndex => {
         setIndex(reqIndex)
-        api.start(i => {
+        apiSprings.start(i => {
           const x = (i - reqIndex) * width
           const scale = 1
           return { x, scale, display: i < index - 1 || i > index + 1 ? 'none' : 'block' }
@@ -222,33 +253,38 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
             <div className='Project' ref={projectRef} style={{background:`url(${project.illustrationPath[0]}) no-repeat center, whitesmoke`, backgroundSize: !!project.portrait  ? 'contain':'cover', height: projectHeight}}
                 onClick={()=>setClicked(true)}>
                 {!!project.repoPath && !! project.directUrl && (<>
-                    <div className='Project-left-action' onClick={(e)=>{e.stopPropagation() && router.push(project.repoPath)}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>
-                    <div className='Project-right-action' onClick={(e)=>{e.stopPropagation() && router.push(project.directUrl)}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div></>
+                    <div className='Project-left-action' onClick={(e)=>{router.push(project.repoPath) && e.stopPropagation()}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>
+                    <div className='Project-right-action' onClick={(e)=>{router.push(project.directUrl)  && e.stopPropagation()}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div></>
                 )}
-                {!!project.repoPath && !project.directUrl &&  <div className='Project-left-action unique' onClick={(e)=>{e.stopPropagation() && router.push(project.repoPath)}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
-                {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={(e)=>{e.stopPropagation() && router.push(project.directUrl)}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
+                {!!project.repoPath && !project.directUrl &&  <div className='Project-left-action unique' onClick={(e)=>{router.push(project.repoPath)  && e.stopPropagation()}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
+                {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={(e)=>{router.push(project.directUrl)  && e.stopPropagation()}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
             </div>
             {shouldRender && 
             <>
                 <ProjectDetail {...{projectPos, projectHeight, project, isClicked, shouldRender, pagesArray}}  ref={projectDetailRef} onAnimationEnd={onAnimationEnd}>
-                    {pagesArray.length > 1 ? props.map(({ x, display, scale }, i) => (
-                        <ContentWrapper {...bind()} key={i} style={{ display, x }}>
-                            <a.div style={{ scale, backgroundImage: `url(${pagesArray[i]})` }} />
+                    {pagesArray.length > 1 ? propsSprings.map(({ x, display, scale }, i) => (
+                        <ContentWrapper {...bind()} key={i} style={{ display, x}}>
+                            <a.div style={{ scale, backgroundImage: `url(${pagesArray[i]})`,backgroundSize: !!project.portrait ? `contain`: `100% 100%`}} />
                         </ContentWrapper>
                     )): (
                         <ContentWrapper>
-                            <a.div onClick={()=>setClicked(false)} style={{cursor: 'pointer', backgroundImage: `url(${pagesArray[0]})` }} />
+                            <a.div onClick={()=>setClicked(false)} style={{cursor: 'pointer', backgroundImage: `url(${pagesArray[0]})`}} />
                         </ContentWrapper>
                     )}
-                    <BulletWrapper>
+                </ProjectDetail>
+                <DarkeningOverlay zIndex={100} name={'projectOverlay'} show={isClicked}/>
+                <BulletWrapper>
                         {pagesArray.length > 1 && pagesArray.map((el, i)=>(
                             <span key={'navbulletsproject' +i} onClick={(e) => { e.stopPropagation(); handleClick(i)}} className={index === i ? 'ProjectDetail-nav-bullet selected': 'ProjectDetail-nav-bullet'}/>
                         ))}
-                    </BulletWrapper>
-                </ProjectDetail>
-                <DarkeningOverlay zIndex={100} name={'projectOverlay'} show={isClicked}/>
-                <CloseWrapper onClick={()=>setClicked(false)}>
-                    <CloseIcon style={{width: '80%', height: '80%'}}/>
+                </BulletWrapper>
+                <TagsWrapper>
+                  {project.tags && project.tags.map((tag,i)=>
+                    <div key={tag + i} className='Filter-tag-wrapper' style={{cursor: 'default'}}>{tag}</div>)
+                  }
+                </TagsWrapper>
+                <CloseWrapper onClick={()=>setClicked(false)} style={{bottom: pagesArray.length > 1 ? '50px': 0}}>
+                    <CloseIcon style={{width: '5vw', height: '100%'}}/>
                 </CloseWrapper>
             </>
             }

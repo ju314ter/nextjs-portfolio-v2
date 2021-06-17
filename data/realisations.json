@@ -4,6 +4,7 @@
         {
             "projectName": "C.V en ligne",
             "projectSlug": "portfolio-v-1",
+            "portrait": false,
             "repoPath": "https://github.com/ju314ter/Curriculum-JF-V1",
             "directUrl": "https://ju314ter.github.io/Curriculum-JF-V1/",
             "illustrationPath": [
@@ -22,6 +23,7 @@
         {
             "projectName": "Portfolio",
             "projectSlug": "portfolio-v-1",
+            "portrait": false,
             "directUrl": "https://next-portfolio-woad-two.vercel.app/",
             "repoPath": "https://github.com/ju314ter/next-portofolio",
             "illustrationPath": [
@@ -43,6 +45,7 @@
         {
             "projectName": "Aile du Maine",
             "projectSlug": "aile-du-maine",
+            "portrait": false,
             "repoPath": "https://github.com/LADMP/ADM",
             "directUrl": "https://suspicious-swirles-87e9f9.netlify.app",
             "illustrationPath": [
@@ -100,6 +103,7 @@
         {
             "projectName": "Landingpage builder",
             "projectSlug": "landingpage-builder",
+            "portrait": false,
             "repoPath": "https://github.com/ju314ter/angular-landing-page-builder",
             "directUrl": "https://ju314ter.github.io/angular-landing-page-builder/",
             "illustrationPath": [
@@ -145,6 +149,7 @@
         {
             "projectName": "Angular multimedia platform v2",
             "projectSlug": "angular-multimedia-platform-v2",
+            "portrait": false,
             "repoPath": "",
             "illustrationPath": [
                 "/projets/cliq1.jpg",
@@ -164,6 +169,7 @@
         {
             "projectName": "Mockup travel agency",
             "projectSlug": "travel-agency-mockup",
+            "portrait": false,
             "repoPath": "https://github.com/ju314ter/VoyagePourTous",
             "illustrationPath": [
                 "/projets/VPT.png"
@@ -179,6 +185,7 @@
             "projectName": "Wordpress personnal online curriculum",
             "projectSlug": "wordpress-curriculum-helwu",
             "repoPath": "",
+            "portrait": false,
             "illustrationPath": [
                 "/projets/helwu.PNG"
             ],
@@ -191,6 +198,7 @@
         {
             "projectName": "MixR: eat and meet",
             "projectSlug": "mixr-social-platform",
+            "portrait": false,
             "repoPath": "",
             "illustrationPath": [
                 "/projets/mixr.png"

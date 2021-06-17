@@ -6,7 +6,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import useMeasure from 'react-use-measure';
 
 
-const GridTag = ({isSelected, tag, onTagClick, index, color}:{isSelected?: boolean, color?: string, tag: string, onTagClick: ()=>void, index: number, key: string}) => {
+const GridTag = ({isSelected, tag, onTagClick, color}:{isSelected?: boolean, color?: string, tag: string, onTagClick?: ()=>void, key: string}) => {
     const [textRef, textBounds] = useMeasure()
     const [isHovered, setHovered] = useState(false)
     const colorRef = useRef(color)
