@@ -264,7 +264,7 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
                 <ProjectDetail {...{projectPos, projectHeight, project, isClicked, shouldRender, pagesArray}}  ref={projectDetailRef} onAnimationEnd={onAnimationEnd}>
                     {pagesArray.length > 1 ? propsSprings.map(({ x, display, scale }, i) => (
                         <ContentWrapper {...bind()} key={i} style={{ display, x}}>
-                            <a.div style={{ scale, backgroundImage: `url(${pagesArray[i]})`,backgroundSize: !!project.portrait ? `contain`: `100% 100%`}} />
+                            <a.div style={{ scale, backgroundImage: `url(${pagesArray[i]})`,backgroundSize: `contain`}} />
                         </ContentWrapper>
                     )): (
                         <ContentWrapper>
