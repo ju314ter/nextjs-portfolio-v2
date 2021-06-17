@@ -225,8 +225,8 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
                     <div className='Project-left-action' onClick={(e)=>{e.stopPropagation() && router.push(project.repoPath)}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>
                     <div className='Project-right-action' onClick={(e)=>{e.stopPropagation() && router.push(project.directUrl)}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div></>
                 )}
-                {!!project.repoPath && !project.directUrl &&  <div className='Project-left-action unique' onClick={()=>{e.stopPropagation() && router.push(project.repoPath)}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
-                {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={()=>{e.stopPropagation() && router.push(project.directUrl)}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
+                {!!project.repoPath && !project.directUrl &&  <div className='Project-left-action unique' onClick={(e)=>{e.stopPropagation() && router.push(project.repoPath)}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
+                {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={(e)=>{e.stopPropagation() && router.push(project.directUrl)}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
             </div>
             {shouldRender && 
             <>
