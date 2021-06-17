@@ -222,11 +222,11 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
             <div className='Project' ref={projectRef} style={{background:`url(${project.illustrationPath[0]}) no-repeat center, whitesmoke`, backgroundSize: !!project.portrait  ? 'contain':'cover', height: projectHeight}}
                 onClick={()=>setClicked(true)}>
                 {!!project.repoPath && !! project.directUrl && (<>
-                    <div className='Project-left-action' onClick={(e)=>{router.push(project.repoPath) && e.stopPropagation()}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>
-                    <div className='Project-right-action' onClick={(e)=>{router.push(project.directUrl) && e.stopPropagation()}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div></>
+                    <div className='Project-left-action' onClick={(e)=>{e.stopPropagation() && router.push(project.repoPath)}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>
+                    <div className='Project-right-action' onClick={(e)=>{e.stopPropagation() && router.push(project.directUrl)}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div></>
                 )}
-                {!!project.repoPath && !project.directUrl &&  <div className='Project-left-action unique' onClick={()=>{router.push(project.repoPath)}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
-                {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={()=>{router.push(project.directUrl)}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
+                {!!project.repoPath && !project.directUrl &&  <div className='Project-left-action unique' onClick={()=>{e.stopPropagation() && router.push(project.repoPath)}}><Github style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
+                {!!project.directUrl && !project.repoPath && <div className='Project-right-action unique' onClick={()=>{e.stopPropagation() && router.push(project.directUrl)}} ><DynamicFeedIcon style={{fill : colorRef, width: '60%', height: '100%'}} /></div>}
             </div>
             {shouldRender && 
             <>
