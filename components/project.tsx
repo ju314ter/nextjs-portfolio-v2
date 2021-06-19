@@ -171,78 +171,76 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
     const [index, setIndex] = useState(0)
     // let index = useRef(0)
     const [pagesArray, setPagesArray] = useState([])
-    const [springProps, springsApi] = useSprings(
+
+    const [propsSprings, apiSprings] = useSprings(
       pagesArray.length,
       i => ({
         x: i * width,
-        scale: width === 0 ? 0 : 1,
-        display: 'block',
+        scale: 1,
+        opacity: 1,
       }),
       [width]
     )
 
-    const [propsSprings, apiSprings] = useSprings(
-        pagesArray.length,
-        i => ({
-          x: i * width,
-          scale: width === 0 ? 0 : 1,
-          display: 'block',
-        }),
-        [width]
-      )
+    const bind = useDrag(({ active, movement: [mx], direction: [xDir], distance, cancel }) => {
 
-      useEffect(() => {
-        setPagesArray(project.illustrationPath)
-        // let responseArray = []
-        // Promise.all(getPages(5))
-        //   .then(values => values.map(value => responseArray.push(value.url)))
-        //   .then(() => setPagesArray(responseArray))
-      }, [])
-    
-      const bind = useDrag(({ active, movement: [mx], direction: [xDir], distance, cancel }) => {
-
-        if(active &&  distance > width / 3.5 && xDir > 0 && index === 0) {
-            console.log('no moar frame on the right')
-            cancel()
-        }
-        if(active &&  distance > width / 3.5 && xDir < 0 && index === pagesArray.length - 1) {
-            console.log('no moar frame on the left')
-            cancel()
-        }
-
-        if (active && distance > width / 3) {
-            setIndex(+clamp(index + (xDir > 0 ? -1 : 1), 0, pagesArray.length - 1))
-            cancel()
-        }
-
-        apiSprings.start(i => {
-          const x = (i - index) * width + (active ? mx : 0)
-          const scale = active ? 1 - distance / width / 2 : 1
-          return { x, scale, display: i < index - 1 || i > index + 1 ? 'none' : 'block' }
-        })
-      })
-    
-      const handleClick = reqIndex => {
-        setIndex(reqIndex)
-        apiSprings.start(i => {
-          const x = (i - reqIndex) * width
-          const scale = 1
-          return { x, scale, display: i < index - 1 || i > index + 1 ? 'none' : 'block' }
-        })
+      if(active &&  distance > width / 3.5 && xDir > 0 && index === 0) {
+          console.log('no moar frame on the right')
+          cancel()
+      }
+      if(active &&  distance > width / 3.5 && xDir < 0 && index === pagesArray.length - 1) {
+          console.log('no moar frame on the left')
+          cancel()
       }
 
-    useEffect(() => {
-        if (isClicked) setRender(true);
-    }, [isClicked]);
+      if (active && distance > width / 3) {
+          setIndex(+clamp(index + (xDir > 0 ? -1 : 1), 0, pagesArray.length - 1))
+          cancel()
+      }
+
+      apiSprings.start(i => {
+        const x = (i - index) * width + (active ? mx : 0)
+        const scale = active ? 1 - distance / width / 2 : 1
+        i === 3 ? console.log(i < index - 1 || i > index + 1):null
+        return { x, scale, opacity: i < index - 1 || i > index + 1 ? 0 : 1 }
+      })
+    })
+    
+    const setRequiredIndex = reqIndex => {
+      setIndex(reqIndex)
+      apiSprings.start(i => {
+        const x = (i - reqIndex) * width
+        const scale = 1
+        return { x, scale, opacity: i === 0 ? 1 : 0}
+      })
+    }
+
+    const handleClose = () => {
+      setRequiredIndex(0)
+      setTimeout(()=>setClicked(false),500)
+    }
 
     const onAnimationEnd = () => {
         if (!isClicked) setRender(false);
     }
 
+    useEffect(() => {
+      setPagesArray(project.illustrationPath)
+      // let responseArray = []
+      // Promise.all(getPages(5))
+      //   .then(values => values.map(value => responseArray.push(value.url)))
+      //   .then(() => setPagesArray(responseArray))
+    }, [])
+
+    useEffect(() => {
+        if (isClicked) setRender(true);
+        if (!isClicked) {setRequiredIndex(0);setTimeout(()=>setClicked(false),500)}
+    }, [isClicked]);
+
     useEffect(()=>{
         setColorRef(color)
         document.addEventListener('keydown',(e)=>{
-            if(e.key === 'Escape') setClicked(false)
+            if(e.key === 'Escape') { handleClose() }
         })
 
         return document.removeEventListener('keydown', ()=>{})
@@ -262,8 +260,8 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
             {shouldRender && 
             <>
                 <ProjectDetail {...{projectPos, projectHeight, project, isClicked, shouldRender, pagesArray}}  ref={projectDetailRef} onAnimationEnd={onAnimationEnd}>
-                    {pagesArray.length > 1 ? propsSprings.map(({ x, display, scale }, i) => (
-                        <ContentWrapper {...bind()} key={i} style={{ display, x}}>
+                    {pagesArray.length > 1 ? propsSprings.map(({ x, opacity, scale }, i) => (
+                        <ContentWrapper {...bind()} key={i} style={{ opacity, x, zIndex: 400 - i}}>
                             <a.div style={{ scale, backgroundImage: `url(${pagesArray[i]})`,backgroundSize: `contain`}} />
                         </ContentWrapper>
                     )): (
@@ -275,7 +273,7 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
                 <DarkeningOverlay zIndex={100} name={'projectOverlay'} show={isClicked}/>
                 <BulletWrapper>
                         {pagesArray.length > 1 && pagesArray.map((el, i)=>(
-                            <span key={'navbulletsproject' +i} onClick={(e) => { e.stopPropagation(); handleClick(i)}} className={index === i ? 'ProjectDetail-nav-bullet selected': 'ProjectDetail-nav-bullet'}/>
+                            <span key={'navbulletsproject' +i} onClick={(e) => { e.stopPropagation(); setRequiredIndex(i)}} className={index === i ? 'ProjectDetail-nav-bullet selected': 'ProjectDetail-nav-bullet'}/>
                         ))}
                 </BulletWrapper>
                 <TagsWrapper>
@@ -283,7 +281,7 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
                     <div key={tag + i} className='Filter-tag-wrapper' style={{cursor: 'default'}}>{tag}</div>)
                   }
                 </TagsWrapper>
-                <CloseWrapper onClick={()=>setClicked(false)} style={{bottom: pagesArray.length > 1 ? '50px': 0}}>
+                <CloseWrapper onClick={()=>handleClose()} style={{bottom: pagesArray.length > 1 ? '50px': 0}}>
                     <CloseIcon style={{width: '5vw', height: '100%'}}/>
                 </CloseWrapper>
             </>
