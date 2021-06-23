@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
 import useMeasure from 'react-use-measure'
 import styled, { keyframes } from 'styled-components';
-import {useSpring, animated as a} from 'react-spring'
+import {useSpring, animated as a} from 'react-spring';
+import { useThemeContext } from '../store/themeContext'
 
 const AnimationWrapper = styled.div`
     position: relative;
@@ -11,7 +12,7 @@ const AnimationWrapper = styled.div`
 const BottomBorder = styled(a.div)`
     display: block;
     content: '';
-    background: white;
+    background: ${props=>props.contentColor};
     position: absolute;
     bottom: 0;
     left: 0;
@@ -22,6 +23,9 @@ const BottomBorder = styled(a.div)`
   
 const FleeingBorderAnimation = (props:any):React.ReactNode => {
     const [wrapperRef, wrapperBounds] = useMeasure()
+
+    const {theme} = useThemeContext()
+    const { contentColor } = theme;
 
     const _intervalRefScale = useRef(null);
     const [startCounter,setStartCounter] = useState(false);
@@ -53,7 +57,7 @@ const FleeingBorderAnimation = (props:any):React.ReactNode => {
         <AnimationWrapper ref={wrapperRef} {...props} onMouseEnter={() => setStartCounter(true)} onMouseLeave={() => {setStartCounter(false); translate(true)}}>
             {props.children}
             <a.div style={translateAnimationStyle}>
-                <BottomBorder style={bottomBorderAnimationStyle}/>
+                <BottomBorder style={bottomBorderAnimationStyle} {...{contentColor}}/>
             </a.div>
         </AnimationWrapper>
     )

@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;700&family=Rokkitt:wght@100;400;700&display=swap');
 
-
-:root {
-  --backgroundColor: #222;
-  --contentColor: #F7F7F7;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -51,6 +45,17 @@ a {
   box-sizing: border-box;
 }
 
+
+.IndexWrapper {
+  --backgroundColor: #222;
+  --contentColor: #F7F7F7;
+
+  // &.darkmode {
+  //   --backgroundColor: #C8C8C8;
+  //   --contentColor: #222;
+  // }
+}
+
 .MaskedBorder {
   position: absolute;
   top: 0;
@@ -72,5 +77,26 @@ a {
 
   &.opposite-color {
     border: 2px solid var(--contentColor);
+  }
+}
+
+.ThemeSwitch-frame {
+  position: fixed;
+  border: 2px solid var(--backgroundColor);
+  left: 5px;
+  top: 5%;
+  width: calc(5vw - 10px);
+  height: calc(5vw - 10px);
+
+  svg {
+
+  }
+
+  &.opposite-color {
+    border: 2px solid var(--contentColor);
+
+    svg {
+
+    }
   }
 }
