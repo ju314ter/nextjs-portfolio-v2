@@ -266,7 +266,7 @@ const Project = ({onClick, color, project, projectHeight}:{color?: string, onCli
                         </ContentWrapper>
                     )): (
                         <ContentWrapper>
-                            <a.div onClick={()=>setClicked(false)} style={{cursor: 'pointer', backgroundImage: `url(${pagesArray[0]})`}} />
+                            <a.div onClick={()=>setClicked(false)} style={{cursor: 'pointer', backgroundSize: `contain`, backgroundImage: `url(${pagesArray[0]})`}} />
                         </ContentWrapper>
                     )}
                 </ProjectDetail>

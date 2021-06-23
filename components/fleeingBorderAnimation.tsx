@@ -12,7 +12,7 @@ const AnimationWrapper = styled.div`
 const BottomBorder = styled(a.div)`
     display: block;
     content: '';
-    background: ${props=>props.contentColor};
+    background: ${props=> props.contentColor};
     position: absolute;
     bottom: 0;
     left: 0;
@@ -57,7 +57,7 @@ const FleeingBorderAnimation = (props:any):React.ReactNode => {
         <AnimationWrapper ref={wrapperRef} {...props} onMouseEnter={() => setStartCounter(true)} onMouseLeave={() => {setStartCounter(false); translate(true)}}>
             {props.children}
             <a.div style={translateAnimationStyle}>
-                <BottomBorder style={bottomBorderAnimationStyle} {...{contentColor}}/>
+                <BottomBorder style={bottomBorderAnimationStyle} {...theme}/>
             </a.div>
         </AnimationWrapper>
     )

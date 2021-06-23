@@ -88,15 +88,7 @@ a {
   width: calc(5vw - 10px);
   height: calc(5vw - 10px);
 
-  svg {
-
-  }
-
   &.opposite-color {
     border: 2px solid var(--contentColor);
-
-    svg {
-
-    }
   }
 }

@@ -27,7 +27,7 @@ width: 100vw;
 top: 0;
 left: 0;
 height: 100vh;
-background: #222;
+background: #222C;
 animation: 0.3s ${props => props.show ? fadeIn : fadeOut} ease-out forwards;
 z-index: ${props => props.zIndex}
 `

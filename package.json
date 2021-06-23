@@ -15,6 +15,7 @@
     "babel-plugin-styled-components": "^1.12.0",
     "lodash.shuffle": "^4.2.0",
     "next": "10.x",
+    "next-images": "^1.8.1",
     "react": "17.x",
     "react-dom": "17.x",
     "react-spring": "^9.1.2",

@@ -26,7 +26,7 @@ export default function Landing() {
 
   const indexRef = useRef(null)
 
-  const [theme, setTheme] = useState<{contentColor, backgroundColor}>(currentTheme.light)
+  const [theme, setTheme] = useState<{contentColor, backgroundColor, projectsBackground}>(currentTheme.light)
   const [isActive, setIsActive] = useState<boolean>(false)
 
 
@@ -64,7 +64,7 @@ export default function Landing() {
   }, [])
 
   useEffect(()=>{
-    console.log(theme)
+    indexRef.current.style.setProperty('--projectsBackground', theme.projectsBackground)
     indexRef.current.style.setProperty('--backgroundColor', theme.backgroundColor)
     indexRef.current.style.setProperty('--contentColor', theme.contentColor)
   },
